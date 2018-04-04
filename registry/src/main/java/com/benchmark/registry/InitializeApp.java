@@ -5,6 +5,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -17,9 +19,9 @@ class InitializeApp implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         movieService.addMovie(
-                new Movie(UUID.randomUUID().toString(), "Titanic", "James Cameron", new Date(1997-11-01), "English", 195));
+                new Movie(UUID.randomUUID().toString(), "Titanic", "James Cameron",LocalDate.of(1997, 11, 01) , "English", 195));
         movieService.addMovie(
-                new Movie(UUID.randomUUID().toString(), "Gone with the Wind", "Victor Fleming", new Date(1939-12-15), "English", 221));
+                new Movie(UUID.randomUUID().toString(), "Gone with the Wind", "Victor Fleming", LocalDate.of(1939, 12,15), "English", 221));
 
         System.out.println(movieService.getMovies());
     }

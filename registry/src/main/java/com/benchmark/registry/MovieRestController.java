@@ -51,13 +51,13 @@ public class MovieRestController {
     }
 
     @PostMapping("/movies")
-    public HttpEntity<?> addMovie(@RequestBody MovieResource res) {
-        Movie movieById = movieService.getMovieById(res.toMovie().getId());
+    public HttpEntity<?> addMovie(@RequestBody Movie res) {
+        Movie movieById = movieService.getMovieById(res.getId());
         if( movieById!= null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
-        MovieResource acc = createResource(MovieResource.create(movieService.addMovie(res.toMovie())));
+        MovieResource acc = createResource(MovieResource.create(movieService.addMovie(res)));
         URI location = URI.create(acc.getLink("self").getHref());
         return ResponseEntity.created(location).body(acc);
 

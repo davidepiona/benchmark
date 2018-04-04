@@ -1,16 +1,12 @@
 package com.benchmark.registry;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.hateoas.ResourceSupport;
 
-import javax.annotation.Resource;
-import javax.annotation.Resources;
+import java.time.LocalDate;
 import java.util.Date;
-import java.util.Optional;
 
 @Data
 @AllArgsConstructor
@@ -19,21 +15,9 @@ public class MovieResource extends ResourceSupport{
     private String movieId;
     private String title;
     private String director;
-    private Date releaseDate;
+    private LocalDate releaseDate;
     private String language;
     private int duration;
-
-    public Movie toMovie() {
-        Movie m = new Movie();
-        m.setId(movieId);
-        m.setTitle(title);
-        m.setDirector(director);
-        m.setReleaseDate(releaseDate);
-        m.setLanguage(language);
-        m.setDuration(duration);
-        return m;
-    }
-
 
     public static MovieResource create(Movie res) {
         return new MovieResource(
@@ -45,6 +29,18 @@ public class MovieResource extends ResourceSupport{
                 res.getDuration()
         );
     }
+    //        return m;
+    //        m.setDuration(duration);
+    //        m.setLanguage(language);
+    //        m.setReleaseDate(releaseDate);
+    //        m.setDirector(director);
+    //        m.setTitle(title);
+    //        m.setId(movieId);
+    //        Movie m = new Movie();
+//    public Movie toMovie() {
+
+//    }
+
 
 
 }

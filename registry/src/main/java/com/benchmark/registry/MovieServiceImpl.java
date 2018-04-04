@@ -1,5 +1,6 @@
 package com.benchmark.registry;
 
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,13 +18,13 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     public List<Movie> getMovies() {
-        return movieRepository.findAll();
+        return Lists.newArrayList(movieRepository.findAll());
     }
 
     @Override
     public Movie getMovieById(String id) {
         return movieRepository.findById(id)
-                .orElseThrow(MovieNotFoundException::new);
+                .orElse(null);
     }
 
     @Override

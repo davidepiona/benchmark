@@ -1,25 +1,36 @@
 package com.benchmark.registry;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.cassandra.core.mapping.Indexed;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.SASI;
+import org.springframework.data.cassandra.core.mapping.Table;
 
+import java.time.LocalDate;
 import java.util.Date;
 
-@Document
+import static org.springframework.data.cassandra.core.mapping.SASI.IndexMode.CONTAINS;
+
+@Table("movie_informations")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Movie {
 
-    @Id
+    @PrimaryKey
     private String id;
+
+    @SASI(indexMode = CONTAINS)
     private String title;
     private String director;
-    private Date releaseDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate releaseDate;
     private String language;
     private int duration;
 }
+
+
