@@ -23,7 +23,7 @@ public class Movie {
     @PrimaryKey
     private String id;
 
-    @SASI(indexMode = CONTAINS)
+//    @SASI(analyzed = true, indexMode = CONTAINS)
     private String title;
     private String director;
 

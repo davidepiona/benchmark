@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-public class MovieRestController {
+public class RegistryRestController {
 
     @Autowired
     private MovieService movieService;
@@ -44,8 +44,9 @@ public class MovieRestController {
                 .orElseThrow(MovieNotFoundException::new);              //404
     }
 
+    //todo non funziona , sistemare!
     @GetMapping("/movies/like/{part}")
-    public HttpEntity<?> MovieUserNameLike(@PathVariable String part) {
+    public HttpEntity<?> movieUserNameLike(@PathVariable String part) {
 
         return ResponseEntity.ok(createListResource(movieService.getMovieLike(part)));
     }

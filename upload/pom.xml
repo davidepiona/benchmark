@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.benchmark</groupId>
-	<artifactId>receiver</artifactId>
+	<artifactId>upload</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>receiver</name>
+	<name>upload</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -47,6 +47,11 @@
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

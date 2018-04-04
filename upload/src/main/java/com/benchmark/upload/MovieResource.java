@@ -1,16 +1,14 @@
-package com.benchmark.registry;
+package com.benchmark.upload;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.hateoas.ResourceSupport;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
-public class MovieResource extends ResourceSupport{
+public class MovieResource extends ResourceSupport {
 
     private String movieId;
     private String title;
@@ -29,6 +27,8 @@ public class MovieResource extends ResourceSupport{
                 res.getDuration()
         );
     }
+
+
     public Movie toMovie() {
         Movie m = new Movie();
         m.setDuration(duration);
@@ -39,5 +39,6 @@ public class MovieResource extends ResourceSupport{
         m.setId(movieId);
         return m;
     }
+
 
 }
