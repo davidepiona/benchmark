@@ -32,17 +32,17 @@ public class UploadRestController {
         headers = new HttpHeaders();
         headers.add("X-Forwarded-Host", "localhost:8020");
     }
-
+    //todo potrebbe tornare un boolean con lo stato della richiesta
     @PostMapping("/upload")
     public HttpEntity<?> addImage(@RequestParam("file") MultipartFile file) {
         try {
-
-            String path = props.getPath() + file.getOriginalFilename();
-            File f = new File(path);
+            String id = UUID.randomUUID().toString();
+            File f = new File(props.getPath(), UUID.randomUUID().toString()+".mp4");
+            String path = f.getAbsolutePath();
             System.out.println("INIZIO: Il file al percorso"+ path+ "esiste?  |"+ f.exists());
             file.transferTo(f);
             System.out.println("FINE: Il file al percorso"+ path+ "esiste?  |"+ f.exists());
-            Movie res = new Movie(UUID.randomUUID().toString(), file.getOriginalFilename(), "James Cameron", LocalDate.of(1997, 11, 01) , "English", 195);
+            Movie res = new Movie(id, file.getOriginalFilename(), "James Cameron", LocalDate.of(1997, 11, 01) , "English", 195);
             HttpEntity<Movie> entity = new HttpEntity<>(res, headers);
             return restTemplate.postForEntity(
                     "http://registry-service/api/movies"
