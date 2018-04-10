@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -55,6 +56,7 @@ public class RegistryRestController {
 
     @PostMapping("/movies")
     public HttpEntity<?> addMovie(@RequestBody Movie res) {
+        res.setId(UUID.randomUUID().toString());
         Movie movieById = movieService.getMovieById(res.getId());
         if( movieById!= null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -63,6 +65,20 @@ public class RegistryRestController {
         MovieResource acc = createResource(MovieResource.create(movieService.addMovie(res)));
         URI location = URI.create(acc.getLink("self").getHref());
         return ResponseEntity.created(location).body(acc);
+
+    }
+
+    @PostMapping("/movies/edit")
+    public HttpEntity<?> editMovie(@RequestBody Movie res) {
+        Movie movieById = movieService.getMovieById(res.getId());
+        System.out.println(movieById);
+        if( movieById== null) {
+            System.out.println("Movie per il patch non trovato");
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+        movieById.setPending(false);
+        createResource(MovieResource.create(movieService.addMovie(movieById)));
+        return ResponseEntity.noContent().build();
 
     }
 

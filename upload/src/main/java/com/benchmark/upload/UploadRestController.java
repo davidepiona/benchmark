@@ -3,10 +3,7 @@ package com.benchmark.upload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,25 +31,24 @@ public class UploadRestController {
         headers.add("X-Forwarded-Host", "localhost:8020");
     }
     //todo potrebbe tornare un boolean con lo stato della richiesta
-    @PostMapping("/upload")
-    public HttpEntity<?> addImage(@RequestParam("file") MultipartFile file) {
+    @PostMapping("/upload/{id}")
+    public HttpEntity<?> addImage(@PathVariable String id, @RequestParam("file") MultipartFile file) {
         try {
-            String id = UUID.randomUUID().toString();
-            File f = new File(props.getPath(), UUID.randomUUID().toString()+".mp4");
+            File f = new File(props.getPath(), id+".mp4");
             String path = f.getAbsolutePath();
             System.out.println("INIZIO: Il file al percorso"+ path+ "esiste?  |"+ f.exists());
             file.transferTo(f);
             System.out.println("FINE: Il file al percorso"+ path+ "esiste?  |"+ f.exists());
 
-
-            Movie res = new Movie(id, file.getOriginalFilename(), "James Cameron", LocalDate.of(1997, 11, 01) , "English", 195);
+            //todo eventuali info raccolte con ffmpeg
+            Movie res = new Movie(id);
+            headers.add("X-HTTP-Method-Override", "PATCH");
             HttpEntity<Movie> entity = new HttpEntity<>(res, headers);
-            restTemplate.postForEntity(
-                    "http://registry-service/api/movies"
+            return restTemplate.exchange(
+                    "http://registry-service/api/movies/edit"
+                    , HttpMethod.POST
                     , entity
                     , Movie.class);
-
-            return ResponseEntity.ok().build();
 
         } catch (IOException e) {
             e.printStackTrace();

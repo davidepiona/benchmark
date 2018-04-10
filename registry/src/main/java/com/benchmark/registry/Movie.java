@@ -31,6 +31,8 @@ public class Movie {
     private LocalDate releaseDate;
     private String language;
     private int duration;
+    private boolean pending;
+
 }
 
 

@@ -19,9 +19,9 @@ class InitializeApp implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         movieService.addMovie(
-                new Movie(UUID.randomUUID().toString(), "Titanic", "James Cameron",LocalDate.of(1997, 11, 01) , "English", 195));
+                new Movie(UUID.randomUUID().toString(), "Titanic", "James Cameron",LocalDate.of(1997, 11, 01) , "English", 195, false));
         movieService.addMovie(
-                new Movie(UUID.randomUUID().toString(), "Gone with the Wind", "Victor Fleming", LocalDate.of(1939, 12,15), "English", 221));
+                new Movie(UUID.randomUUID().toString(), "Gone with the Wind", "Victor Fleming", LocalDate.of(1939, 12,15), "English", 221, true));
 
         System.out.println(movieService.getMovies());
     }
