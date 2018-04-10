@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class UploadRestController {
@@ -42,12 +43,17 @@ public class UploadRestController {
             System.out.println("INIZIO: Il file al percorso"+ path+ "esiste?  |"+ f.exists());
             file.transferTo(f);
             System.out.println("FINE: Il file al percorso"+ path+ "esiste?  |"+ f.exists());
+
+
             Movie res = new Movie(id, file.getOriginalFilename(), "James Cameron", LocalDate.of(1997, 11, 01) , "English", 195);
             HttpEntity<Movie> entity = new HttpEntity<>(res, headers);
-            return restTemplate.postForEntity(
+            restTemplate.postForEntity(
                     "http://registry-service/api/movies"
                     , entity
                     , Movie.class);
+
+            return ResponseEntity.ok().build();
+
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
