@@ -40,9 +40,10 @@ public class UploadRestController {
             file.transferTo(f);
             System.out.println("FINE: Il file al percorso"+ path+ "esiste?  |"+ f.exists());
 
-            //todo eventuali info raccolte con ffmpeg
-            Movie res = new Movie(id);
-            headers.add("X-HTTP-Method-Override", "PATCH");
+            FFmpegHandlerImpl FFmpeg = new FFmpegHandlerImpl(id);
+            System.out.println(FFmpeg.getHeight()+"x"+FFmpeg.getWidth()+"   "+ FFmpeg.getRatio()+ " Duration:"+ FFmpeg.getDuration());
+            Movie res = new Movie(id, null, null, null, null, 0, false);
+            //headers.add("X-HTTP-Method-Override", "PATCH");
             HttpEntity<Movie> entity = new HttpEntity<>(res, headers);
             return restTemplate.exchange(
                     "http://registry-service/api/movies/edit"

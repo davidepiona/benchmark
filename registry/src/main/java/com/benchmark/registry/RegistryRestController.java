@@ -76,7 +76,7 @@ public class RegistryRestController {
             System.out.println("Movie per il patch non trovato");
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
-        movieById.setPending(false);
+        movieById.editMovie(res);
         createResource(MovieResource.create(movieService.addMovie(movieById)));
         return ResponseEntity.noContent().build();
 

@@ -11,6 +11,7 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Optional;
 
 import static org.springframework.data.cassandra.core.mapping.SASI.IndexMode.CONTAINS;
 
@@ -32,6 +33,15 @@ public class Movie {
     private String language;
     private int duration;
     private boolean pending;
+
+    public void editMovie(Movie newMovie) {
+        Optional.ofNullable(newMovie.getTitle()).ifPresent(this::setTitle);
+        Optional.ofNullable(newMovie.getDirector()).ifPresent(this::setDirector);
+        Optional.ofNullable(newMovie.getReleaseDate()).ifPresent(this::setReleaseDate);
+        Optional.ofNullable(newMovie.getLanguage()).ifPresent(this::setLanguage);
+        if(newMovie.duration!=0) this.setDuration(newMovie.duration);
+        this.setPending(newMovie.isPending());
+    }
 
 }
 
