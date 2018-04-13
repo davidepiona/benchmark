@@ -17,6 +17,8 @@ public class MovieResource extends ResourceSupport {
     private String language;
     private int duration;
     private boolean pending;
+    private int width;
+    private int height;
 
     public static MovieResource create(Movie res) {
         return new MovieResource(
@@ -26,7 +28,9 @@ public class MovieResource extends ResourceSupport {
                 res.getReleaseDate(),
                 res.getLanguage(),
                 res.getDuration(),
-                res.isPending()
+                res.isPending(),
+                res.getWidth(),
+                res.getHeight()
         );
     }
 
@@ -40,6 +44,8 @@ public class MovieResource extends ResourceSupport {
         m.setTitle(title);
         m.setId(movieId);
         m.setPending(pending);
+        m.setWidth(width);
+        m.setHeight(height);
         return m;
     }
 

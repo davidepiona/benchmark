@@ -42,7 +42,7 @@ public class UploadRestController {
 
             FFmpegHandlerImpl FFmpeg = new FFmpegHandlerImpl(id);
             System.out.println(FFmpeg.getHeight()+"x"+FFmpeg.getWidth()+"   "+ FFmpeg.getRatio()+ " Duration:"+ FFmpeg.getDuration());
-            Movie res = new Movie(id, null, null, null, null, 0, false);
+            Movie res = new Movie(id, null, null, null, null, FFmpeg.getDuration(), false, FFmpeg.getWidth(), FFmpeg.getHeight());
             //headers.add("X-HTTP-Method-Override", "PATCH");
             HttpEntity<Movie> entity = new HttpEntity<>(res, headers);
             return restTemplate.exchange(

@@ -23,9 +23,19 @@ public class Movie{
     private String language;
     private int duration;
     private boolean pending;
+    private int width;
+    private int height;
 
     public Movie(String id) {
         this.id = id;
+    }
+
+    public Movie(String id, int duration, boolean pending, int width, int height) {
+        this.id = id;
+        this.duration = duration;
+        this.pending = pending;
+        this.width = width;
+        this.height = height;
     }
 }
 

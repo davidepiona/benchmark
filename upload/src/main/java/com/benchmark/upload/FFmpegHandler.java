@@ -2,11 +2,11 @@ package com.benchmark.upload;
 
 public interface FFmpegHandler {
 
-    String getWidth();
+    int getWidth();
 
-    String getHeight();
+    int getHeight();
 
     String getRatio();
 
-    String getDuration();
+    int getDuration();
 }

@@ -8,10 +8,10 @@ import java.io.InputStreamReader;
 public class FFmpegHandlerImpl implements FFmpegHandler{
 
     private String path;
-    private String width;
-    private String height;
+    private int width;
+    private int height;
     private String ratio;
-    private String duration;
+    private int duration;
 
     public FFmpegHandlerImpl(String path) {
         this.path = path;
@@ -34,12 +34,12 @@ public class FFmpegHandlerImpl implements FFmpegHandler{
                 line = r.readLine();
                 String[] split = line.split("=");
                 if(split[0].equals("coded_width")){
-                    this.width=split[1];
+                    this.width=Integer.parseInt(split[1]);
 //                    System.out.println("TROVATO!!! -->"+this.width);
                     read++;
                 }
                 if(split[0].equals("coded_height")){
-                    this.height=split[1];
+                    this.height=Integer.parseInt(split[1]);
 //                    System.out.println("TROVATO!!! -->"+this.height);
                     read++;
                 }
@@ -49,7 +49,7 @@ public class FFmpegHandlerImpl implements FFmpegHandler{
                     read++;
                 }
                 if(split[0].equals("duration")){
-                    this.duration=split[1];
+                    this.duration=Integer.parseInt(split[1].split("\\.")[0]);
 //                    System.out.println("TROVATO!!! -->"+this.duration);
                     read++;
                 }
@@ -62,12 +62,12 @@ public class FFmpegHandlerImpl implements FFmpegHandler{
     }
 
     @Override
-    public String getWidth() {
+    public int getWidth() {
         return width;
     }
 
     @Override
-    public String getHeight() {
+    public int getHeight() {
         return height;
     }
 
@@ -77,7 +77,7 @@ public class FFmpegHandlerImpl implements FFmpegHandler{
     }
 
     @Override
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
 }

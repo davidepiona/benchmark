@@ -33,6 +33,8 @@ public class Movie {
     private String language;
     private int duration;
     private boolean pending;
+    private int width;
+    private int height;
 
     public void editMovie(Movie newMovie) {
         Optional.ofNullable(newMovie.getTitle()).ifPresent(this::setTitle);
@@ -40,6 +42,8 @@ public class Movie {
         Optional.ofNullable(newMovie.getReleaseDate()).ifPresent(this::setReleaseDate);
         Optional.ofNullable(newMovie.getLanguage()).ifPresent(this::setLanguage);
         if(newMovie.duration!=0) this.setDuration(newMovie.duration);
+        if(newMovie.width!=0) this.setWidth(newMovie.width);
+        if(newMovie.height!=0) this.setHeight(newMovie.height);
         this.setPending(newMovie.isPending());
     }
 
