@@ -1,4 +1,4 @@
-package com.benchmark.upload;
+package com.benchmark.registry;
 
 
 import lombok.Data;

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,9 @@ public class RegistryRestController {
 
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private UploadProperties props;
 
     @GetMapping("/movies")
     public HttpEntity<?> getMovies() {
@@ -42,16 +46,13 @@ public class RegistryRestController {
         return Optional.ofNullable(movieService.getMovieById(id))
                 .map(a -> {
                     movieService.deleteMovie(id);
+                    File file = new File(props.getPath(),id+".mp4");
+                    if(!file.delete()){
+                        System.out.println("ERRORE ELIMINAZIONE FILE: "+ id+".mp4");
+                    }
                     return ResponseEntity.noContent().build();          //204
                 })
                 .orElseThrow(MovieNotFoundException::new);              //404
-    }
-
-    //todo non funziona , sistemare!
-    @GetMapping("/movies/like/{part}")
-    public HttpEntity<?> movieUserNameLike(@PathVariable String part) {
-
-        return ResponseEntity.ok(createListResource(movieService.getMovieLike(part)));
     }
 
     @PostMapping("/movies")
@@ -68,9 +69,9 @@ public class RegistryRestController {
 
     }
 
-    @PostMapping("/movies/edit")
-    public HttpEntity<?> editMovie(@RequestBody Movie res) {
-        Movie movieById = movieService.getMovieById(res.getId());
+    @PutMapping("/movies/{id}")
+    public HttpEntity<?> editMovie(@PathVariable String id, @RequestBody Movie res) {
+        Movie movieById = movieService.getMovieById(id);
         System.out.println(movieById);
         return Optional.ofNullable(movieById)
                 .map(a -> {
