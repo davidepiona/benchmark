@@ -10,21 +10,17 @@ version: v0.1
                 200:
                     description: |
                         All the movies found.
-                    headers:
-                        Location:
-                            description: |
-                                Location of the resources. 
                     body:
                         application/json:
-                            type: !movie-list-type.schema
-                            example: !movie-list-example.schema  
+                            type: !include movie-list-type.schema
+                            example: !include movie-list-example.schema  
         post:
             description: |
                 Creates a new movie entry.
             body:
                 application/json:
-                    type: j
-                    example: j
+                    type: !include movie-post-type.schema
+                    example: !include movie-post-example.schema
             responses:
                 201: 
                     description: |
@@ -35,8 +31,8 @@ version: v0.1
                                 Location of the created resource. 
                     body:
                         application/json:
-                            type: j
-                            example: j
+                            type: !include movie-get-type.schema
+                            example: !include movie-get-example.schema
                 409:
                     description: |
                         Already exists a Movie with the same ID.
@@ -46,21 +42,19 @@ version: v0.1
                     displayName: movie ID
                     type: string
                     description: ID of the movie
-#                   example: 5a5dd4f57c63af0874e4ac7e
+                    example: d042d68d-1962-4dbd-b9f9-16cdcdfe58a7
                     required: true
             get:
                 description: |
-                    Returns, if any, the movie that matches the specified ID.
-                example: |
-                    5a5dd4f57c63af0874e4ac7e
+                    Returns, if any, the movie that matches the specified ID. 
                 responses:
                     200:
                         description: |
-                            Movie found and returned.
+                            Movie found and returned.   
                         body:
                             application/json:
-                                type: j
-                                example: j     
+                                type: !include movie-get-type.schema
+                                example: !include movie-get-example.schema     
                     404:
                         description: |
                             Does not exist any movie that matches the specified ID.           
@@ -74,14 +68,13 @@ version: v0.1
                     404:
                         description: |
                             Does not exist any movie that matches the specified ID.
-        /edit:
-            post:
+            put:
                 description: |
                     Modifies, if any, the movie that matches the specified ID; uses the not-NULL fields of the given new object.
                 body:
                     application/json:
-                        type: j
-                        example: j 
+                        type: !include movie-post-type.schema
+                        example: !include movie-post-example.schema 
                 responses:
                         204:
                             description: |
@@ -89,74 +82,65 @@ version: v0.1
                         404:
                             description: |
                                 Does not exist any movie that matches the specified ID.
-            delete:
-                description: |
-                    Deletes, if any, the movie file that matches the specified ID.
-                responses:
-                    204:
-                        description: |
-                            Movie found and deleted.   
-                    404:
-                        description: |
-                            Does not exist any movie that matches the specified ID.
     /upload/{movieId}:
         uriParameters: 
             movieId:
                 displayName: movie ID
                 type: string
                 description: ID of the movie
-#                   example: 5a5dd4f57c63af0874e4ac7e
+                example: d042d68d-1962-4dbd-b9f9-16cdcdfe58a7
                 required: true
         post: 
             description: |
                     Uploads a new movie, associated to the specified movie ID.
-                body:
-                    application/json:
-                        type: j
-                        example: j 
-                responses:
-                        204:
-                            description: |
-                                Operation completed successfully.  
-                        404:
-                            description: |
-                                Does not exist any movie that matches the specified ID.
+            body:
+                multipart/form-data:
+                    properties:
+                        file:
+                            description: The movie to be uploaded.
+                            required: true
+                            type: file 
+            responses:
+                204:
+                    description: |
+                        Operation completed successfully. 
+                404:
+                    description: |
+                        Does not exist any movie that matches the specified ID.
 /stream/{movieId}:
     uriParameters: 
         movieId:
             displayName: movie ID
             type: string
             description: ID of the movie
-            example: 5a5dd4f57c63af0874e4ac7e
+            example: d042d68d-1962-4dbd-b9f9-16cdcdfe58a7
             required: true
-        get:
-            description: |
-                Returns, if any, the movie that matches the specified ID.
-            example: |
-                5a5dd4f57c63af0874e4ac7e
-            responses:
-                200:
-                    description: |
-                        Movie found and returned.
-                    body:
-                        application/json:
-                            type: j
-                            example: j     
-                404:
-                    description: |
-                        Does not exist any movie that matches the specified ID.  
-
-        
-    
+    get:
+        description: |
+            Returns, if any, the movie that matches the specified ID.
+        responses:
+            200:
+                description: |
+                    Movie found and returned.
+                body:
+                    video/*:
+                        properties:
+                            file:
+                                description: The movie for the streaming reproduction.
+                                required: true
+                                type: file     
+            404:
+                description: |
+                    Does not exist any movie that matches the specified ID.        
+   
 
 
 # /api/movies GET             Returns the list of available movies (200 - moviesList)
 #     /movies POST            Creates a new movie entry (@body - movie)(201 - movie / 409 - conflict, movie yet existing)
 #         /{ID}   GET         Returns, if any, the movie that matches the specified ID (@path - ID)(200 - movie / 404 - not found)
 #         /{ID}   DELETE      Deletes, if any, the movie that matches the specified ID (@path - ID)(204 / 404 - not found)          
-#         /edit   POST        Modifies, if any, the movie that matches the specified ID; uses the not-NULL fields of the given new object. (@path -ID, @body movie)(204 / 404 - not found)
+#         /{ID}   PATCH       Modifies, if any, the movie that matches the specified ID; uses the not-NULL fields of the given new object. (@path -ID, @body movie)(204 / 404 - not found)
 #     /upload/{ID} POST       Uploads a new movie, associated to the specified movie ID (@path - ID, @body multipart Movie) (204 / 400 - bad request)
-#     /upload/{ID} DELETE*    Deletes, if any, the movie file that matches the specified ID (@path - ID) (204 / 400 - bad request)
 # /stream/{ID}    GET         Returns the stream of bytes that matches the movie with the specified ID (@path - ID) (???)
 
 

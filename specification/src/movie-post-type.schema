@@ -1,0 +1,40 @@
+{
+    "type": "object",
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "id": "http://jsonschema.net",
+    "required": true,
+    "properties": {
+        "title": {
+            "type": "string",
+            "required": false
+            },
+        "director": {
+            "type": "string",
+            "required": false
+            },
+        "releaseDate": {
+            "type": "string",
+            "required": false
+            }
+        "language": {
+            "type": "string",
+            "required": false
+            }
+        "duration": {
+            "type": "integer",
+            "required": false
+            }
+        "pending": {
+            "type": "boolean",
+            "required": false
+            }
+        "width": {
+            "type": "integer",
+            "required": false
+            }
+        "height": {
+            "type": "integer",
+            "required": false
+            }
+    }
+}
