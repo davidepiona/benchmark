@@ -72,14 +72,13 @@ public class RegistryRestController {
     public HttpEntity<?> editMovie(@RequestBody Movie res) {
         Movie movieById = movieService.getMovieById(res.getId());
         System.out.println(movieById);
-        if( movieById== null) {
-            System.out.println("Movie per il patch non trovato");
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
-        movieById.editMovie(res);
-        createResource(MovieResource.create(movieService.addMovie(movieById)));
-        return ResponseEntity.noContent().build();
-
+        return Optional.ofNullable(movieById)
+                .map(a -> {
+                    movieById.editMovie(res);
+                    createResource(MovieResource.create(movieService.addMovie(movieById)));
+                    return ResponseEntity.noContent().build();
+                })
+                .orElseThrow(MovieNotFoundException::new);
     }
 
     private MovieResource createResource(MovieResource res) {

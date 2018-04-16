@@ -1,0 +1,15 @@
+{
+    "movieResources": [
+        {
+        "movieId": "ea152782-6e86-4b77-9546-ac69398d0cc8",
+        "title": "Titanic",
+        "director": "James Cameron",
+        "releaseDate": "1997-11-01",
+        "language": "English",
+        "duration": 195,
+        "pending": false,
+        "width": 1920,
+        "height": 1080
+        }
+    ]
+} 
