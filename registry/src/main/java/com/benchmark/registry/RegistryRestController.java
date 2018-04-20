@@ -28,7 +28,7 @@ public class RegistryRestController {
     @GetMapping("/movies")
     public HttpEntity<?> getMovies() {
 
-        System.out.println("Entrato");
+        System.out.println("Entrato2");
         return ResponseEntity.ok(createListResource(movieService.getMovies()));
     }
 

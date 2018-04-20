@@ -26,52 +26,9 @@ import java.util.List;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.path;
 
-@RestController
 @EnableDiscoveryClient
 @SpringBootApplication
 public class GatewayApplication {
-
-    @Bean
-    public DiscoveryClientRouteDefinitionLocator
-    discoveryClientRouteLocator(DiscoveryClient discoveryClient) {
-
-        return new DiscoveryClientRouteDefinitionLocator(discoveryClient);
-    }
-
-    @Autowired
-    private DiscoveryClient discoveryClient;
-
-    @GetMapping("/service")
-    public List<ServiceInstance> serviceInstances() {
-        List<String> services = discoveryClient.getServices();
-        String description = discoveryClient.description();
-        System.out.println("services: " + services);
-        System.out.println("Description: " + description);
-        for (String service : services) {
-            List<ServiceInstance> instances = discoveryClient.getInstances(service);
-            System.out.println("Instances: " + instances);
-            for (ServiceInstance instance : instances) {
-                System.out.println("Service:  " + instance.getServiceId());
-                System.out.println("Host:     " + instance.getHost());
-                System.out.println("Uri:      " + instance.getUri());
-                System.out.println("Port:     " + instance.getPort());
-                System.out.println("Metadata: " + instance.getMetadata());
-            }
-        }
-        return null;
-    }
-
-    @Bean
-    public WebFluxConfigurer corsConfigurer() {
-        return new WebFluxConfigurerComposite() {
-
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*")
-                        .allowedMethods("*");
-            }
-        };
-    }
 
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {

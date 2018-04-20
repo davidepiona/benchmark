@@ -1,8 +1,15 @@
+
 server:
-  port: 9999
+  port: 8010
+#spring.data.cassandra.contact-points= cassandra
 spring:
+  data:
+    cassandra:
+      port: 9042
+      keyspace-name: Movies
+      schema-action: create_if_not_exists
   application:
-    name: gateway-service
+    name: registry-service
 
 management:
   endpoints:
@@ -16,3 +23,6 @@ management:
         http:
           server:
             requests: 1ms, 5ms
+
+
+

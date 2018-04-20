@@ -1,14 +1,22 @@
-server:
-  port: 9999
 spring:
   application:
-    name: gateway-service
+    name: eureka-service
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: eureka-service
+  client:
+    register-with-eureka: false
+    fetch-registry: false
 
 management:
   endpoints:
     web:
       exposure:
-        include: prometheus,health,info,env
+        include: "*"
   metrics:
     distribution:
       percentiles-histogram[http.server.requests]: true

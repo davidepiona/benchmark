@@ -1,0 +1,25 @@
+server:
+  port: 8020
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    distribution:
+      percentiles-histogram[http.server.requests]: true
+      sla:
+        http:
+          server:
+            requests: 1ms, 5ms
+
+upload:
+  path: C:/Users/Davide/IdeaProjects/benchmark/media/
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 8024MB
+      max-request-size: 8024MB
+  application:
+    name: upload-service
