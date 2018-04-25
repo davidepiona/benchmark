@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: eureka-service
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: eureka-service
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://eureka-service:${server.port}/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health,info,env
+  metrics:
+    distribution:
+      percentiles-histogram[http.server.requests]: true
+      sla:
+        http:
+          server:
+            requests: 1ms, 5ms

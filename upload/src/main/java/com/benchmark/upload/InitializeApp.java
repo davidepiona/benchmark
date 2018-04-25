@@ -5,15 +5,24 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 @Component
 class InitializeApp implements ApplicationRunner {
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
-//          FFmpegHandlerImpl m = new FFmpegHandlerImpl("86de1079-2c5f-4094-b378-63a247126724");
-//        File file = new File("location/to/file.mp4");
-//        file.getIn
-//        MultipartEntityBuilder multipartEntity = MultipartEntityBuilder.create().addBinaryBody("file", file);
+    public void run(ApplicationArguments args) {
+//        ProcessBuilder builder = new ProcessBuilder(
+//                "/bin/bash", "-c", "chmod +x etc/nginx" +
+//                "-v quiet -show_format -show_streams etc/nginx/" + path + ".mp4");
+//
+//        builder.redirectErrorStream(true);
+//        Process p = null;
+//        try {
+//            p = builder.start();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
 }

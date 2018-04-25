@@ -1,0 +1,100 @@
+version: "3"
+services:
+  eureka-service:
+    image: benchmark/eureka-microservice:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8761:8761"
+    networks:
+      - net
+  # upload-service:
+    # image: benchmark/upload-microservice:latest
+    # deploy:
+      # replicas: 1
+      # restart_policy:
+        # condition: on-failure
+    # ports:
+      # - "8020:8020"  
+    # depends_on:
+      # - eureka-service
+    # volumes:
+      # - "C:/Users/Davide/IdeaProjects/benchmark/media:/etc/nginx"
+    # networks:
+      # - net
+  gateway-service:
+    image: benchmark/gateway-microservice:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "9999:9999"  
+    depends_on:
+      - eureka-service
+    networks:
+      - net
+  registry-service:
+    image: benchmark/registry-microservice:latest
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8010:8010"  
+    depends_on:
+      - eureka-service
+    networks:
+      - net
+  # nginx:
+    # image: nginx
+    # deploy:
+      # replicas: 1
+      # restart_policy:
+        # condition: on-failure
+    # ports:
+      # - "8888:80"
+    # volumes:
+      # - "C:/Users/Davide/IdeaProjects/benchmark/docker/default.conf:/etc/nginx/conf.d/default.conf"
+      # - "C:/Users/Davide/IdeaProjects/benchmark/media:/opt/stream"
+    # networks:
+      # - net
+  # prometheus:
+    # image: prom/prometheus:v2.2.0
+    # volumes:
+      # - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    # ports:
+      # - "9090:9090"
+  # grafana:
+    # image: grafana/grafana:5.0.1
+    # volumes:
+      # - "./grafana-datasource.yml:/etc/grafana/provisioning/datasources/grafana-datasource.yml"
+    # ports:
+      # - "6060:3000"
+    # depends_on:
+      # - prometheus
+  cassandra: 
+    image: benchmark/cassandra
+    command: /bin/bash -c "sleep 1 && echo ' -- Pausing to let system catch up ... -->' && /docker-entrypoint.sh cassandra -f"
+    expose:
+     - 9042
+    ports:
+      - "9042:9042"
+    networks:
+      - net
+    # volumes:
+      # - ./docker-entrypoint.sh:/docker-entrypoint.sh
+      # - ./keyspace.cql:/docker-entrypoint-initdb.d/keyspace.cql
+  # gui:
+    # image: benchgui:latest
+    # ports:
+      # - "5000:8080"
+    # networks:
+      # - net  
+networks:
+    net:
+# volumes:
+    # mongoVol:
+    # mongoConfig:

@@ -28,13 +28,15 @@ public class RegistryRestController {
     @GetMapping("/movies")
     public HttpEntity<?> getMovies() {
 
-        System.out.println("Entrato2");
+        System.out.println("get-movies");
         return ResponseEntity.ok(createListResource(movieService.getMovies()));
+
     }
 
     @GetMapping("/movies/{id}")
     public HttpEntity<?> getMovieById(@PathVariable String id) {
 
+        System.out.println("Get-movie"+id);
         return Optional.ofNullable(movieService.getMovieById(id))
                 .map(a -> ResponseEntity.ok(createResource(a)))
                 .orElseThrow(MovieNotFoundException::new);
@@ -46,6 +48,7 @@ public class RegistryRestController {
         return Optional.ofNullable(movieService.getMovieById(id))
                 .map(a -> {
                     movieService.deleteMovie(id);
+                    System.out.println("Delete-movie"+id);
                     File file = new File(props.getPath(),id+".mp4");
                     if(!file.delete()){
                         System.out.println("ERRORE ELIMINAZIONE FILE: "+ id+".mp4");
@@ -65,6 +68,7 @@ public class RegistryRestController {
 
         MovieResource acc = createResource(MovieResource.create(movieService.addMovie(res)));
         URI location = URI.create(acc.getLink("self").getHref());
+        System.out.println("Post-movie"+res.getTitle());
         return ResponseEntity.created(location).body(acc);
 
     }
@@ -77,6 +81,7 @@ public class RegistryRestController {
                 .map(a -> {
                     movieById.editMovie(res);
                     createResource(MovieResource.create(movieService.addMovie(movieById)));
+                    System.out.println("Put-movie"+res.getTitle());
                     return ResponseEntity.noContent().build();
                 })
                 .orElseThrow(MovieNotFoundException::new);

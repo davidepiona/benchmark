@@ -3,6 +3,38 @@ server:
 spring:
   application:
     name: gateway-service
+  cloud:
+    gateway:
+      routes:
+      - id: upload
+        uri: lb://upload-service
+        predicates:
+        - Path=/api/upload/**
+        filters:
+        - RewritePath=/api/upload/(?<segment>.*), api/upload/$\{segment}
+      - id: registry
+        uri: lb://registry-service
+        predicates:
+        - Path=/api/**
+        filters:
+        - Hystrix=commandName
+        - RewritePath=/api/(?<segment>.*), api/$\{segment}
+      - id: nginx
+        uri: http://localhost:8888
+        predicates:
+        - Path=/stream/**
+        filters:
+        - Hystrix=commandName
+        - RewritePath=/stream/(?<segment>.*), stream/$\{segment}
+      - id: gui
+        uri: http://localhost:8080
+        predicates:
+        - Path=/**
+#        filters:
+#        - Hystrix=commandName
+
+
+
 
 management:
   endpoints:
@@ -16,3 +48,17 @@ management:
         http:
           server:
             requests: 1ms, 5ms
+
+path:
+  nginx: http://localhost:8888
+  gui: http://localhost:8080
+
+#
+#hystrix:
+#  registry-service:
+#    execution:
+#      isolation:
+#        thread:
+#          timeoutInMilliSeconds: 5000
+
+

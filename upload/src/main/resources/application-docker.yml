@@ -14,8 +14,8 @@ management:
             requests: 1ms, 5ms
 
 upload:
-  path: C:/Users/Davide/IdeaProjects/benchmark/media/
-  environment: local
+  path: /etc/nginx
+  environment: docker
 
 spring:
   servlet:
@@ -24,3 +24,10 @@ spring:
       max-request-size: 8024MB
   application:
     name: upload-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka/
+  instance:
+    prefer-ip-address: true

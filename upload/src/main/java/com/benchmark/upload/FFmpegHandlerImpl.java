@@ -1,6 +1,8 @@
 package com.benchmark.upload;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,11 +15,21 @@ public class FFmpegHandlerImpl implements FFmpegHandler{
     private String ratio;
     private int duration;
 
-    public FFmpegHandlerImpl(String path) {
+    @Autowired
+    private UploadProperties props;
+
+    public FFmpegHandlerImpl(String path, String env) throws IOException {
         this.path = path;
-        ProcessBuilder builder = new ProcessBuilder(
-                "cmd.exe", "/c", "C:\\Users\\Davide\\ffmpeg-3.4.2-win64-static\\bin\\ffprobe " +
-                "-v quiet -show_format -show_streams C:\\Users\\Davide\\IdeaProjects\\benchmark\\media\\"+path+".mp4");
+        ProcessBuilder builder;
+        if(env.equals("docker")){
+            builder = new ProcessBuilder(
+                    "/bin/bash", "-c", "etc/ffprobe " +
+                    "-v quiet -show_format -show_streams etc/nginx/" + path + ".mp4");        }
+        else{
+            builder= new ProcessBuilder(
+                    "cmd.exe", "/c", "C:\\Users\\Davide\\ffmpeg-3.4.2-win64-static\\bin\\ffprobe " +
+                    "-v quiet -show_format -show_streams C:\\Users\\Davide\\IdeaProjects\\benchmark\\media\\"+path+".mp4");
+        }
 
         builder.redirectErrorStream(true);
         Process p = null;
@@ -26,12 +38,17 @@ public class FFmpegHandlerImpl implements FFmpegHandler{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        String line="";
+        BufferedReader r = null;
+        if (p != null) {
+            r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        }
+        String line = "";
         int read =0;
         while (read<4) {
             try {
-                line = r.readLine();
+                if (r != null) {
+                    line = r.readLine();
+                }
                 String[] split = line.split("=");
                 if(split[0].equals("coded_width")){
                     this.width=Integer.parseInt(split[1]);
