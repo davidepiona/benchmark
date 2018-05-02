@@ -105,7 +105,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<repository>benchmark/gateway-microservice</repository>
+					<repository>davidepiona/gateway-microservice</repository>
 					<buildArgs>
 						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
 					</buildArgs>

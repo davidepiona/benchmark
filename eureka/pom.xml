@@ -93,7 +93,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<repository>benchmark/eureka-microservice</repository>
+					<repository>davidepiona/eureka-microservice</repository>
 					<buildArgs>
 						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
 					</buildArgs>
