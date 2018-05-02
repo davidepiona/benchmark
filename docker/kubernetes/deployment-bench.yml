@@ -1,0 +1,202 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka-service
+spec:
+  selector:
+    matchLabels:
+      app: eureka-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: eureka-service
+    spec:
+      containers:
+      - name: eureka-service
+        image: davidepiona/eureka-microservice 
+        ports:
+        - containerPort: 8761
+# ---	
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+  # name: upload
+# spec:
+  # selector:
+    # matchLabels:
+      # app: upload
+  # replicas: 1
+  # template:
+    # metadata:
+      # labels:
+        # app: upload
+    # spec:
+      # containers:
+      # - name: upload
+        # image: davidepiona/upload-microservice 
+        # ports:
+        # - containerPort: 8020
+---		
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry
+spec:
+  selector:
+    matchLabels:
+      app: registry
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: registry
+    spec:
+      containers:
+      - name: registry
+        image: davidepiona/registry-microservice 
+        ports:
+        - containerPort: 8010
+---	
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+spec:
+  selector:
+    matchLabels:
+      app: gateway
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+      - name: gateway
+        image: davidepiona/gateway-microservice 
+        ports:
+        - containerPort: 9999
+      - name: dev
+        image: davidepiona/benchgui	  
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cassandra
+spec:
+  selector:
+    matchLabels:
+      app: cassandra
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cassandra
+    spec:
+      volumes:
+        - name: storage
+          hostPath:
+            path: "/data/cassandra"
+      containers:
+        - name: storage
+          image: davidepiona/cassandra
+          volumeMounts:
+            - mountPath: "/data/db"
+              name: storage
+
+
+
+
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+  # name: dev
+# spec:
+  # selector:
+    # matchLabels:
+      # app: dev
+  # replicas: 1
+  # template:
+    # metadata:
+      # labels:
+        # app: dev
+    # spec:
+      # containers:
+      # - name: dev
+        # image: davidepiona/httpio 
+        # ports:
+        # - containerPort: 5000
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+  # name: redis-slave
+  # labels:
+    # app: redis
+    # tier: backend
+    # role: slave
+# spec:
+  # ports:
+  # - port: 6379
+  # selector:
+    # app: redis
+    # tier: backend
+    # role: slave
+# ---
+# apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
+# kind: Deployment
+# metadata:
+  # name: redis-slave
+# spec:
+  # selector:
+    # matchLabels:
+      # app: redis
+      # role: slave
+      # tier: backend
+  # replicas: 2
+  # template:
+    # metadata:
+      # labels:
+        # app: redis
+        # role: slave
+        # tier: backend
+    # spec:
+      # containers:
+      # - name: slave
+        # image: gcr.io/google_samples/gb-redisslave:v1
+        # resources:
+          # requests:
+            # cpu: 100m
+            # memory: 100Mi
+        # env:
+        # - name: GET_HOSTS_FROM
+          # value: dns
+          # If your cluster config does not include a dns service, then to
+          # instead access an environment variable to find the master
+          # service's host, comment out the 'value: dns' line above, and
+          # uncomment the line below:
+          # value: env
+        # ports:
+        # - containerPort: 6379
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+  # name: frontend
+  # labels:
+    # app: guestbook
+    # tier: frontend
+# spec:
+  # if your cluster supports it, uncomment the following to automatically create
+  # an external load-balanced IP for the frontend service.
+  # type: LoadBalancer
+  # ports:
+  # - port: 80
+  # selector:
+    # app: guestbook
+    # tier: frontend
+

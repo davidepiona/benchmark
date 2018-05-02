@@ -35,6 +35,7 @@ public class UploadRestController {
     @PostMapping("/upload/{id}")
     public HttpEntity<?> addImage(@PathVariable String id, @RequestParam("file") MultipartFile file) {
         try {
+            //todo controllare che l'id esista prima di copiare il video
             File f = new File(props.getPath(), id+".mp4");
             String path = f.getAbsolutePath();
             System.out.println("INIZIO: Il file al percorso"+ path+ "esiste?  |"+ f.exists());

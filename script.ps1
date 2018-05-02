@@ -1,9 +1,12 @@
 $i=10
 echo $i
 While ($i -ge 1) {
-	
-	Invoke-WebRequest -URI http://localhost:8010/api/movies #| Select-Object -Property Content
-	# Invoke-RestMethod -Uri https://blogs.msdn.microsoft.com/powershell/feed/ 
+
+	#get web request
+	# $getResponse = Invoke-WebRequest -URI http://10.0.1.24:31167/api/movies #| Select-Object -Property Content
+	# echo $getResponse | Select-Object -Property Content
+	## get REST
+	# $getResponse = Invoke-RestMethod -Uri https://blogs.msdn.microsoft.com/powershell/feed/ 
 	# echo $getResponse
 	
 	$name = 'Titanic'
@@ -14,7 +17,9 @@ While ($i -ge 1) {
 		language='tedesco'
 	}
 	$json = $movie | ConvertTo-Json
-	$postResponse = Invoke-RestMethod 'http://localhost:8010/api/movies' -Method Post -Body $json -ContentType 'application/json'
+	
+	# post REST
+	$postResponse = Invoke-RestMethod 'http://localhost:9999/api/movies' -Method Post -Body $json -ContentType 'application/json'
 	
 	echo $i
 	$i--
