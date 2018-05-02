@@ -10,6 +10,7 @@ COPY cassandra-env.sh /etc/cassandra/cassandra-env.sh
 
 # make my modified enTrypoinT execuTable
 RUN chmod a+x docker-entrypoint.sh
+RUN chmod a+x /etc/cassandra/cassandra-env.sh
 
 # ENTRYPOINT will be called in parenT-docker-image!
 

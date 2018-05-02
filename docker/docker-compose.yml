@@ -1,63 +1,63 @@
 version: "3"
 services:
-  eureka-service:
-    image: davidepiona/eureka-microservice:latest
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-    ports:
-      - "8761:8761"
-    networks:
-      - net
-  upload-service:
-    image: davidepiona/upload-microservice:latest
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-    ports:
-      - "8020:8020"
-    volumes:
-      # - "C:/Users/Davide/IdeaProjects/benchmark/media:/etc/nginx"
-      - "/home/davide/dev/benchmark/media:/etc/nginx"
-    networks:
-      - net
-  gateway-service:
-    image: davidepiona/gateway-microservice:latest
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-    ports:
-      - "9999:9999"  
-    networks:
-      - net
-  registry-service:
-    image: davidepiona/registry-microservice:latest
-    deploy:
-      replicas: 2
-      restart_policy:
-        condition: on-failure
-    ports:
-      - "8010:8010"  
-    networks:
-      - net
-  nginx:
-    image: nginx
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-    ports:
-      - "8888:80"
-    volumes:
-      # - "C:/Users/Davide/IdeaProjects/benchmark/docker/default.conf:/etc/nginx/conf.d/default.conf"
-      # - "C:/Users/Davide/IdeaProjects/benchmark/media:/opt/stream"
-      - "/home/davide/dev/benchmark/docker/default.conf:/etc/nginx/conf.d/default.conf"
-      - "/home/davide/dev/benchmark/media:/opt/stream"
-    networks:
-      - net
+  # eureka-service:
+  #   image: davidepiona/eureka-microservice:latest
+  #   deploy:
+  #     replicas: 1
+  #     restart_policy:
+  #       condition: on-failure
+  #   ports:
+  #     - "8761:8761"
+  #   networks:
+  #     - net
+  # upload-service:
+  #   image: davidepiona/upload-microservice:latest
+  #   deploy:
+  #     replicas: 1
+  #     restart_policy:
+  #       condition: on-failure
+  #   ports:
+  #     - "8020:8020"
+  #   volumes:
+  #     # - "C:/Users/Davide/IdeaProjects/benchmark/media:/etc/nginx"
+  #     - "/home/davide/dev/benchmark/media:/etc/nginx"
+  #   networks:
+  #     - net
+  # gateway-service:
+  #   image: davidepiona/gateway-microservice:latest
+  #   deploy:
+  #     replicas: 1
+  #     restart_policy:
+  #       condition: on-failure
+  #   ports:
+  #     - "9999:9999"  
+  #   networks:
+  #     - net
+  # registry-service:
+  #   image: davidepiona/registry-microservice:latest
+  #   deploy:
+  #     replicas: 2
+  #     restart_policy:
+  #       condition: on-failure
+  #   ports:
+  #     - "8010:8010"  
+  #   networks:
+  #     - net
+  # nginx:
+  #   image: nginx
+  #   deploy:
+  #     replicas: 1
+  #     restart_policy:
+  #       condition: on-failure
+  #   ports:
+  #     - "8888:80"
+  #   volumes:
+  #     # - "C:/Users/Davide/IdeaProjects/benchmark/docker/default.conf:/etc/nginx/conf.d/default.conf"
+  #     # - "C:/Users/Davide/IdeaProjects/benchmark/media:/opt/stream"
+  #     - "/home/davide/dev/benchmark/docker/default.conf:/etc/nginx/conf.d/default.conf"
+  #     - "/home/davide/dev/benchmark/media:/opt/stream"
+  #   networks:
+  #     - net
   # prometheus:
     # image: prom/prometheus:v2.2.0
     # volumes:
@@ -73,19 +73,22 @@ services:
     # depends_on:
       # - prometheus
   cassandra: 
-    image: davidepiona/cassandra
+    image: davidepiona/cassandra:latest
     command: /bin/bash -c "sleep 1 && echo ' -- Pausing to let system catch up ... -->' && /docker-entrypoint.sh cassandra -f"
-    expose:
-     - 9042
     ports:
       - "9042:9042"
     networks:
       - net
-  gui:
-    image: davidepiona/benchgui
-    ports:
-      - "5000:8080"
-    networks:
-      - net  
+    volumes:
+    # - "C:/Users/Davide/IdeaProjects/benchmark/docker/cassandra-docker/cassandra.yaml:/etc/cassandra/cassandra.yaml"
+    # - "C:/Users/Davide/IdeaProjects/benchmark/docker/cassandra-docker/cassandra-env.sh:/etc/cassandra/cassandra-env.sh"
+      - "/home/davide/dev/benchmark/docker/cassandra-docker/cassandra.yaml:/etc/cassandra/cassandra.yaml"
+      - "/home/davide/dev/benchmark/docker/cassandra-docker/cassandra-env.sh:/etc/cassandra/cassandra-env.sh"
+  # gui:
+  #   image: davidepiona/benchgui
+  #   ports:
+  #     - "5000:8080"
+  #   networks:
+  #     - net  
 networks:
     net:
