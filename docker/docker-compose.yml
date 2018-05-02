@@ -33,16 +33,16 @@ services:
   #     - "9999:9999"  
   #   networks:
   #     - net
-  # registry-service:
-  #   image: davidepiona/registry-microservice:latest
-  #   deploy:
-  #     replicas: 2
-  #     restart_policy:
-  #       condition: on-failure
-  #   ports:
-  #     - "8010:8010"  
-  #   networks:
-  #     - net
+  registry-service:
+    image: davidepiona/registry-microservice:latest
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8010:8010"  
+    networks:
+      - net
   # nginx:
   #   image: nginx
   #   deploy:
@@ -79,11 +79,15 @@ services:
       - "9042:9042"
     networks:
       - net
-    volumes:
+    environment:
+      - MAX_HEAP_SIZE=400M
+      - HEAP_NEWSIZE=200M
+      - disk_optimization_strategy=ssd
+    # volumes:
     # - "C:/Users/Davide/IdeaProjects/benchmark/docker/cassandra-docker/cassandra.yaml:/etc/cassandra/cassandra.yaml"
     # - "C:/Users/Davide/IdeaProjects/benchmark/docker/cassandra-docker/cassandra-env.sh:/etc/cassandra/cassandra-env.sh"
-      - "/home/davide/dev/benchmark/docker/cassandra-docker/cassandra.yaml:/etc/cassandra/cassandra.yaml"
-      - "/home/davide/dev/benchmark/docker/cassandra-docker/cassandra-env.sh:/etc/cassandra/cassandra-env.sh"
+      # - "/home/davide/dev/benchmark/docker/cassandra-docker/cassandra.yaml:/etc/cassandra/cassandra.yaml"
+      # - "/home/davide/dev/benchmark/docker/cassandra-docker/cassandra-env.sh:/etc/cassandra/cassandra-env.sh"
   # gui:
   #   image: davidepiona/benchgui
   #   ports:
