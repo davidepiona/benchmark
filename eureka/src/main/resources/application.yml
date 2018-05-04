@@ -24,3 +24,9 @@ management:
         http:
           server:
             requests: 1ms, 5ms
+#    export:
+#      datadog:
+#        api-key: eac21a9b2a8975b127b09f3a062de5b1
+#        step: 1s
+#        application-key: 87ef9098ee8e94589a898d6fbdd33c31dff1d2b8
+

@@ -14,7 +14,8 @@ management:
             requests: 1ms, 5ms
 
 upload:
-  path: C:/Users/Davide/IdeaProjects/benchmark/media/
+#  path: C:/Users/Davide/IdeaProjects/benchmark/media/
+  path: /home/davide/dev/benchmark/media/
   environment: local
 
 spring:

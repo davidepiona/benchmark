@@ -1,15 +1,16 @@
 version: "3"
 services:
-  # eureka-service:
-  #   image: davidepiona/eureka-microservice:latest
-  #   deploy:
-  #     replicas: 1
-  #     restart_policy:
-  #       condition: on-failure
-  #   ports:
-  #     - "8761:8761"
-  #   networks:
-  #     - net
+  eureka-service:
+    image: davidepiona/eureka-microservice:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8761:8761"
+      - "7238:7238"
+    networks:
+      - net
   # upload-service:
   #   image: davidepiona/upload-microservice:latest
   #   deploy:
@@ -18,6 +19,7 @@ services:
   #       condition: on-failure
   #   ports:
   #     - "8020:8020"
+  #     - "7020:7020"
   #   volumes:
   #     # - "C:/Users/Davide/IdeaProjects/benchmark/media:/etc/nginx"
   #     - "/home/davide/dev/benchmark/media:/etc/nginx"
@@ -30,7 +32,8 @@ services:
   #     restart_policy:
   #       condition: on-failure
   #   ports:
-  #     - "9999:9999"  
+  #     - "9999:9999" 
+  #     - "7999:7999" 
   #   networks:
   #     - net
   registry-service:
@@ -40,7 +43,8 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-      - "8010:8010"  
+      - "8010:8010"
+      - "7010:7010"
     networks:
       - net
   # nginx:
@@ -83,11 +87,6 @@ services:
       - MAX_HEAP_SIZE=400M
       - HEAP_NEWSIZE=200M
       - disk_optimization_strategy=ssd
-    # volumes:
-    # - "C:/Users/Davide/IdeaProjects/benchmark/docker/cassandra-docker/cassandra.yaml:/etc/cassandra/cassandra.yaml"
-    # - "C:/Users/Davide/IdeaProjects/benchmark/docker/cassandra-docker/cassandra-env.sh:/etc/cassandra/cassandra-env.sh"
-      # - "/home/davide/dev/benchmark/docker/cassandra-docker/cassandra.yaml:/etc/cassandra/cassandra.yaml"
-      # - "/home/davide/dev/benchmark/docker/cassandra-docker/cassandra-env.sh:/etc/cassandra/cassandra-env.sh"
   # gui:
   #   image: davidepiona/benchgui
   #   ports:

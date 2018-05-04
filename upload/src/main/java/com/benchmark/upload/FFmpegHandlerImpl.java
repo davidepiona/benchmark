@@ -26,9 +26,12 @@ public class FFmpegHandlerImpl implements FFmpegHandler{
                     "/bin/bash", "-c", "etc/ffprobe " +
                     "-v quiet -show_format -show_streams etc/nginx/" + path + ".mp4");        }
         else{
+//            builder= new ProcessBuilder(
+//                    "cmd.exe", "/c", "C:\\Users\\Davide\\ffmpeg-3.4.2-win64-static\\bin\\ffprobe " +
+//                    "-v quiet -show_format -show_streams C:\\Users\\Davide\\IdeaProjects\\benchmark\\media\\"+path+".mp4");
             builder= new ProcessBuilder(
-                    "cmd.exe", "/c", "C:\\Users\\Davide\\ffmpeg-3.4.2-win64-static\\bin\\ffprobe " +
-                    "-v quiet -show_format -show_streams C:\\Users\\Davide\\IdeaProjects\\benchmark\\media\\"+path+".mp4");
+                    "/bin/bash", "-c", "/home/davide/dev/benchmark/upload/ffprobe " +
+                    "-v quiet -show_format -show_streams /home/davide/dev/benchmark/media/                              " + path + ".mp4");
         }
 
         builder.redirectErrorStream(true);
