@@ -18,6 +18,7 @@ spec:
         image: davidepiona/eureka-microservice 
         ports:
         - containerPort: 8761
+        - containerPort: 7761
 # ---	
 # apiVersion: apps/v1
 # kind: Deployment
@@ -38,6 +39,7 @@ spec:
         # image: davidepiona/upload-microservice 
         # ports:
         # - containerPort: 8020
+        # - containerPort: 7020
 ---		
 apiVersion: apps/v1
 kind: Deployment
@@ -58,6 +60,7 @@ spec:
         image: davidepiona/registry-microservice 
         ports:
         - containerPort: 8010
+        - containerPort: 7010
 ---	
 apiVersion: apps/v1
 kind: Deployment
@@ -78,6 +81,7 @@ spec:
         image: davidepiona/gateway-microservice 
         ports:
         - containerPort: 9999
+        - containerPort: 7999
       - name: dev
         image: davidepiona/benchgui	  
 

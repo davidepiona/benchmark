@@ -20,7 +20,7 @@ spring:
           - Hystrix=commandName
           - RewritePath=/api/(?<segment>.*), api/$\{segment}
         - id: nginx
-          uri: http://nginx:8888
+          uri: http://nginx:80
           predicates:
           - Path=/stream/**
           filters:

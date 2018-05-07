@@ -67,5 +67,7 @@ spec:
   ports:
   - port: 8761
     targetPort: 8761
+  - port: 7761
+    targetPort: 7761
   selector:
     app: eureka-service
