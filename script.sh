@@ -1,39 +1,91 @@
 #!/bin/bash
-for i in `seq 1 100`
-do
-	if true; then	
-		time wget -O/dev/null -q http://localhost:8010/api/movies #| Select-Object -Property Content
-	fi
-	if true; then
-		time curl -X POST \
-		  http://localhost:8010/api/movies \
-		  -H 'Cache-Control: no-cache' \
-		  -H 'Content-Type: application/json' \
-		  -d '{
-		    "title": "Titanic",
-		    "director": "James Cameron",
-		    "releaseDate": "1997-11-01",
-		    "language": "English",
-		    "pending": false
+
+nGet=1000
+nPos=300
+nUpl=100
+boolGet=true
+boolPos=false
+boolUpl=false
+boolGetCont=false
+boolPosCont=false
+boolUplCont=false
+> error.txt
+export TIMEFORMAT='real: %3R  user: %3U sys: %3S'
+
+#-----------------------------------------------------------peak of GET requests
+if $boolGet; then
+	for i in `seq 1 $nGet`
+	do	
+		wget -q -O/dev/null http://127.0.0.1:9999/api/movies || echo $? >>error.txt &
+	done
+wait
+errors=$(wc -w error.txt | head -n1)
+echo "Si sono verificati "$errors" errori"
+echo "Sleeping"
+# sleep 5
+fi
+
+
+first=1
+#-----------------------------------------------------------continuos GET requests
+if $boolGetCont; then
+	for t in `seq 1 10`
+	do
+		start=$(date +%s.%N);
+		for i in `seq 1 100`
+		do	
+			wget -q -O/dev/null http://127.0.0.1:9999/api/movies || echo $? >>error.txt &
+		done
+		wait
+		dur=$(echo "$(date +%s.%N) - $start" | bc);
+		echo $t" times using "$dur" seconds"
+		sleep $( bc <<< "1 - $dur" )
+	done
+errors=$(wc -w error.txt | head -n1)
+echo "Si sono verificati "$errors" errori"
+echo "Sleeping"
+#sleep 5
+fi
+
+
+
+#-----------------------------------------------------------POST
+if $boolPos; then
+	for i in `seq 1 $nPos`
+	do
+		time curl -s -X POST \
+			http://127.0.0.1:9999/api/movies \
+			-H 'Cache-Control: no-cache' \
+			-H 'Content-Type: application/json' \
+			-d '{
+			"title": "Titanic'$i'",
+			"director": "James Cameron",
+			"releaseDate": "1997-11-01",
+			"language": "English",
+			"pending": false
 		}
-		'
-	fi
-	if false; then
-		curl -X POST \
-		  http://localhost:8020/api/upload/d6dccd42-cda5-4d33-bf08-1180700e8dcd \
-		  -H 'Cache-Control: no-cache' \
-		  -F 'file=@/home/davide/Desktop/Bambino_Freddo.mp4'
-	fi
+		' > /dev/null && echo 'post '$i &
+	done
+wait
+echo "Sleeping"
+#sleep 5
+fi
 
-	if false; then
-		wget \
-		  --method POST \
-		  --header 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
-		  --header 'Cache-Control: no-cache' \
-		  --body-data '------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name="file"; filename="Bambino_Freddo.mp4"\r\nContent-Type: video/mp4\r\n\r\n\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--' \
-		  --output-document \
-		  - http://localhost:8020/api/upload/d6dccd42-cda5-4d33-bf08-1180700e8dcd
-	fi
-	echo $i
-done
 
+
+
+#------------------------------------------------------------UPLOAD
+if $boolUpl; then
+	for i in `seq 1 $nUpl`
+	do
+		time curl -X POST \
+			http://127.0.0.1:8020/api/upload/f4d50467-ccbf-4b04-8d02-5daaf6c02710 \
+			-H 'Cache-Control: no-cache' \
+			-F 'file=@/home/davide/Desktop/Bambino_Freddo.mp4' &
+		#if [ $i -eq 10 ]; then
+		#	sh script.sh
+		#fi
+		echo 'upload '$i
+	done
+	wait
+fi

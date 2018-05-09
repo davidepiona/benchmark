@@ -12,7 +12,7 @@
 8b47effc1d2f, docker_registry-service_1, 0.23%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,
 [2J[Hcb87ce7af24d, docker_cassandra_1, 0.92%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,
 8b47effc1d2f, docker_registry-service_1, 0.28%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 0.92%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,
+[2J[Hcb87ce7af24d, docker_cassandra_1, 0.92%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,"docker stats --format ""table {{.Container}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}\t{{.PIDs}}"""
 8b47effc1d2f, docker_registry-service_1, 0.28%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,
 [2J[Hcb87ce7af24d, docker_cassandra_1, 0.88%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,
 8b47effc1d2f, docker_registry-service_1, 0.24%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,

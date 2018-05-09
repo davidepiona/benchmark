@@ -26,9 +26,9 @@ services:
     networks:
       - net
   gateway-service:
-    image: davidepiona/gateway-microservice:latest
+    image: davidepiona/gateway-microservice
     deploy:
-      replicas: 1
+      replicas: 2
       restart_policy:
         condition: on-failure
     ports:
@@ -39,7 +39,7 @@ services:
   registry-service:
     image: davidepiona/registry-microservice
     deploy:
-      replicas: 1
+      replicas: 2
       restart_policy:
         condition: on-failure
     ports:

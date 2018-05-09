@@ -17,7 +17,6 @@ spring:
           predicates:
           - Path=/api/**
           filters:
-          - Hystrix=commandName
           - RewritePath=/api/(?<segment>.*), api/$\{segment}
         - id: nginx
           uri: http://nginx:80
