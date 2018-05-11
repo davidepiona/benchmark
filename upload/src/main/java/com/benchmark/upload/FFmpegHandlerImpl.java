@@ -31,7 +31,7 @@ public class FFmpegHandlerImpl implements FFmpegHandler{
 //                    "-v quiet -show_format -show_streams C:\\Users\\Davide\\IdeaProjects\\benchmark\\media\\"+path+".mp4");
             builder= new ProcessBuilder(
                     "/bin/bash", "-c", "/home/davide/dev/benchmark/upload/ffprobe " +
-                    "-v quiet -show_format -show_streams /home/davide/dev/benchmark/media/                              " + path + ".mp4");
+                    "-v quiet -show_format -show_streams /home/davide/dev/benchmark/media/" + path + ".mp4");
         }
 
         builder.redirectErrorStream(true);

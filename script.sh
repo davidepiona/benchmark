@@ -26,7 +26,6 @@ echo "Sleeping"
 fi
 
 
-first=1
 #-----------------------------------------------------------continuos GET requests
 if $boolGetCont; then
 	for t in `seq 1 10`
