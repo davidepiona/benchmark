@@ -1,0 +1,29 @@
+#DB_PORT_9042_TCP_ADDR: cassandra
+
+server:
+  port: 8070
+  application:
+    name: wsTest-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health,info,env
+  metrics:
+    distribution:
+      percentiles-histogram[http.server.requests]: true
+      sla:
+        http:
+          server:
+            requests: 1ms, 5ms
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+upload:
+  path: C:/Users/Davide/IdeaProjects/benchmark/media/
+

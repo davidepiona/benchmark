@@ -38,7 +38,7 @@ public class UploadRestController {
             //todo controllare che l'id esista prima di copiare il video
             File f = new File(props.getPath(), id+".mp4");
             String path = f.getAbsolutePath();
-            System.out.println("INIZIO: Il file al percorso"+ path+ "esiste?  |"+ f.exists());
+            System.out.println("INIZIO: InputStream targetStream = FileUtils.openInputStream(initialFile);Il file al percorso"+ path+ "esiste?  |"+ f.exists());
             file.transferTo(f);
             System.out.println("FINE: Il file al percorso"+ path+ "esiste?  |"+ f.exists());
 

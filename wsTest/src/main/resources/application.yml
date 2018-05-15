@@ -1,0 +1,25 @@
+
+server:
+  port: 8070
+#spring.data.cassandra.contact-points= cassandra
+spring:
+  application:
+    name: wsTest-service
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health,info,env
+  metrics:
+    distribution:
+      percentiles-histogram[http.server.requests]: true
+      sla:
+        http:
+          server:
+            requests: 1ms, 5ms
+
+upload:
+  path: C:/Users/Davide/IdeaProjects/benchmark/media/
+

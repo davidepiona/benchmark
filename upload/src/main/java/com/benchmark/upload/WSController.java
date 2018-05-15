@@ -8,10 +8,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Base64;
 
 @Controller
@@ -33,22 +34,22 @@ public class WSController {
     }
 
     @MessageMapping("/upload")
-    public boolean upload(UploadRequest req) {
+    public WSResponse upload(UploadRequest req) {
         StringWriter w = new StringWriter();
         w.append(req.getFileContent());
         try {
-            FileUtils.writeByteArrayToFile(new File(props.getPath(), "file" + req.getPartId() + ".tmp"), Base64.getDecoder().decode(w.toString()));
+            FileUtils.writeByteArrayToFile(new File(props.getPath(), "file" + req.getPartId() + req.getId() + ".tmp"), Base64.getDecoder().decode(w.toString()));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         System.out.println("part: " + req.getPartId() + "  count: " + req.getPartCount());
         if (req.getPartId() == req.getPartCount()) {
-            File dest = new File(props.getPath(), "file0.tmp");
+            File dest = new File(props.getPath(), "file0" + req.getId() + ".tmp");
             for (int partId = 1; partId < req.getPartCount(); partId++) {
                 byte[] buffer = null;
                 try {
-                    buffer = IOUtils.toByteArray(new File(props.getPath(), "file" + partId + ".tmp").toURI());
+                    buffer = IOUtils.toByteArray(new File(props.getPath(), "file" + partId + req.getId() + ".tmp").toURI());
                     FileUtils.writeByteArrayToFile(dest, buffer, true);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -56,19 +57,20 @@ public class WSController {
             }
             dest.renameTo(new File(props.getPath(), req.getId() + ".mp4"));
             if (!postToRegistry(req)) {
-                return false;
+                return new WSResponse(req.getId(), false);
             }
             ProcessBuilder builder; // TODO: 11/05/18 bisogna aspettare che finiscano le operazioni precedenti? 
-            builder = new ProcessBuilder("/bin/bash", "-c", "cd /home/davide/dev/benchmark/media/; rm *.tmp");
+            builder = new ProcessBuilder("/bin/bash", "-c", "cd /home/davide/dev/benchmark/media/; rm *" + req.getId() + ".tmp");
             builder.redirectErrorStream(true);
             try {
                 builder.start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return new WSResponse(req.getId(), true);
         }
 
-        return true;
+        return new WSResponse(req.getId(), false);
     }
 
     private boolean postToRegistry(UploadRequest req) {
