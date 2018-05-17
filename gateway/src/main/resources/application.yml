@@ -53,12 +53,5 @@ path:
   nginx: http://localhost:8888
   gui: http://localhost:8080
 
-#
-#hystrix:
-#  registry-service:
-#    execution:
-#      isolation:
-#        thread:
-#          timeoutInMilliSeconds: 5000
 
 

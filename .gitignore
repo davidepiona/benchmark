@@ -29,3 +29,6 @@ nbdist/
 /gui2
 /gui
 ffprobe
+*.vmdk
+*.qcow2
+*.iso

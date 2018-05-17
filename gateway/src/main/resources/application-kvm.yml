@@ -1,0 +1,56 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: gateway-service
+  cloud:
+      gateway:
+        routes:
+        - id: upload
+          uri: lb://upload-service
+          predicates:
+          - Path=/api/upload/**
+          filters:
+          - RewritePath=/api/upload/(?<segment>.*), api/upload/$\{segment}
+        - id: registry
+          uri: lb://registry-service
+          predicates:
+          - Path=/api/**
+          filters:
+          - RewritePath=/api/(?<segment>.*), api/$\{segment}
+        - id: nginx
+          uri: http://192.168.122.88:80
+          predicates:
+          - Path=/stream/**
+          filters:
+          - Hystrix=commandName
+          - RewritePath=/stream/(?<segment>.*), stream/$\{segment}
+        - id: gui
+          uri: http://192.168.122.89:8080
+          predicates:
+          - Path=/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health,info,env
+  metrics:
+    distribution:
+      percentiles-histogram[http.server.requests]: true
+      sla:
+        http:
+          server:
+            requests: 1ms, 5ms
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.122.87:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+path:
+  nginx: http://192.168.122.88:8888
+  gui: http://192.168.122.89:8080
+

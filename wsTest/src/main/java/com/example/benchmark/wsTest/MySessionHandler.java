@@ -50,6 +50,10 @@ public class MySessionHandler extends StompSessionHandlerAdapter {
     }
 
     public long stopTimer(String id){
-        return System.currentTimeMillis() - timerMap.get(id);
+        if(timerMap.containsKey(id)) {
+            return System.currentTimeMillis() - timerMap.get(id);
+        }
+        else
+            return 0;
     }
 }

@@ -1,0 +1,5 @@
+qemu-img convert -O qcow2 turnkey-core-14.2-jessie-amd64-disk1.vmdk /home/davide/dev/benchmark/kvm/Nginx2.qcow2
+
+tar xvf *.ova
+
+qemu-img create alpine.qcow 8G

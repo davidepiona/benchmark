@@ -4,8 +4,8 @@ ARG JAR_FILE
 EXPOSE 8761
 EXPOSE 7020
 COPY target/${JAR_FILE} /upload-microservice.jar
-COPY ffprobe /etc/ffprobe
-RUN chmod +x /etc/ffprobe
+COPY ffprobe /opt/ffprobe
+RUN chmod +x /opt/ffprobe
 CMD ["java", \
     "-Xmx384m", \
     "-Dspring.profiles.active=docker", \

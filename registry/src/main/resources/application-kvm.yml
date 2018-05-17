@@ -1,3 +1,4 @@
+#DB_PORT_9042_TCP_ADDR: cassandra
 
 server:
   port: 8010
@@ -9,7 +10,7 @@ spring:
       keyspace-name: Movies
       schema-action: create_if_not_exists
       contact-points:
-        - localhost
+        - 192.168.122.42
   application:
     name: registry-service
 
@@ -25,8 +26,14 @@ management:
         http:
           server:
             requests: 1ms, 5ms
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.122.87:8761/eureka/
+  instance:
+    prefer-ip-address: true
 
 upload:
-#  path: C:/Users/Davide/IdeaProjects/benchmark/media/
-  path: /home/davide/dev/benchmark/media/
+  path: /opt/media/
+
 

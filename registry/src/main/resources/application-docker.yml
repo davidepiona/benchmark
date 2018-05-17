@@ -34,5 +34,5 @@ eureka:
     prefer-ip-address: true
 
 upload:
-  path: C:/Users/Davide/IdeaProjects/benchmark/media/
+  path: /opt/media
 
