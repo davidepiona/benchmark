@@ -26,7 +26,7 @@ nbdist/
 
 ### Davide ###
 /media
-/gui2
+/specification/node_modules
 /gui
 ffprobe
 *.vmdk

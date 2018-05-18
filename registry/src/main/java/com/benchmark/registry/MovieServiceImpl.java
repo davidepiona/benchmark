@@ -21,6 +21,7 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     public Movie getMovieById(String id) {
+
         return movieRepository.findById(id)
                 .orElse(null);
     }

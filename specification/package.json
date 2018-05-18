@@ -1,17 +1,17 @@
 {
   "name": "benchmark-spec",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "raml2html": "^6.6.0"
+    "raml2html": "^6.7.0"
   },
   "scripts": {
     "build": "raml2html -o dist/index.html src/apiBenchmark.raml"
   },
   "dependencies": {
     "start": "^5.1.0"
-  }
+  },
+  "description": ""
 }

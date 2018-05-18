@@ -4,5 +4,5 @@ spring:
   application:
     name: wsTest-service
 
-
-
+test:
+  ws: ws://127.0.0.1:8020/events/websocket

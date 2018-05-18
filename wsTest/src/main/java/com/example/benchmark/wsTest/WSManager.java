@@ -17,18 +17,25 @@ import java.util.concurrent.ExecutionException;
 
 @Component
 public class WSManager {
-    public static final int BUFFER_SIZE = 8192;
 
-    public void runWS(MovieList movieList) {
+    private static final int BUFFER_SIZE = 8192;
+    private StompSession stompSession;
+    private MySessionHandler sessionHandler;
+    private TestProperties props;
 
+    /**
+     * Constructor that create the session, establishes the connection and subscribes it
+     */
+    public WSManager() {
+
+//        String url = props.getWs();
         String url = "ws://127.0.0.1:8020/events/websocket";
-
         WebSocketClient webSocketClient = new StandardWebSocketClient();
         WebSocketStompClient stompClient = new WebSocketStompClient(webSocketClient);
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
         stompClient.setTaskScheduler(new ConcurrentTaskScheduler());
-        MySessionHandler sessionHandler = new MySessionHandler();
-        StompSession stompSession = null;
+        this.sessionHandler = new MySessionHandler();
+        this.stompSession = null;
         try {
             stompSession = stompClient.connect(url, sessionHandler).get();
         } catch (InterruptedException e) {
@@ -37,26 +44,28 @@ public class WSManager {
             e.printStackTrace();
         }
         stompSession.subscribe("/topic/upload", sessionHandler);
+    }
+
+    public void movieListUpload(MovieList movieList) {
+
+
         for (int i = 0; i < movieList.getMovieResources().size(); i++) {
             MovieInfo movieInfo = movieList.getMovieResources().get(i);
-            uploadWSRequest(stompSession, sessionHandler, movieInfo);
+            uploadRequest(movieInfo, "/home/davide/Desktop/Bambino_Freddo.mp4");
         }
     }
 
-    public void echoWSRequest(StompSession stompSession, MySessionHandler sessionHandler) {
+    public void echoRequest() {
 
         stompSession.subscribe("/topic/echo", sessionHandler);
         stompSession.send("/app/echo", "{\"name\":\"Helloooo\"}".getBytes());
         stompSession.disconnect();
     }
 
-    public void uploadWSRequest(StompSession stompSession, MySessionHandler sessionHandler, MovieInfo movieInfo) {
+    public void uploadRequest(MovieInfo movieInfo, String uploadPath) {
 
         String id = movieInfo.getMovieId();
-
-
-//        File f = new File("/home/davide/dev/benchmark/media/", id + ".mp4");
-        File f = new File("/home/davide/Desktop/", "Bambino_Freddo.mp4");
+        File f = new File(uploadPath);
         sessionHandler.startTimer(id);
 
         String path = f.getAbsolutePath();
