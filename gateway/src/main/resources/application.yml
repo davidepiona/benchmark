@@ -40,14 +40,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: prometheus,health,info,env
-  metrics:
-    distribution:
-      percentiles-histogram[http.server.requests]: true
-      sla:
-        http:
-          server:
-            requests: 1ms, 5ms
+        include: health,info,env
 
 path:
   nginx: http://localhost:8888
