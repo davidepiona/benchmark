@@ -3,8 +3,6 @@ package com.benchmark.upload;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.FileInputStream;
-
 @Data
 @NoArgsConstructor
 public class UploadRequest {

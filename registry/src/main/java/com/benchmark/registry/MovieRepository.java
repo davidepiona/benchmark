@@ -1,7 +1,6 @@
 package com.benchmark.registry;
 
 
-import org.springframework.data.cassandra.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

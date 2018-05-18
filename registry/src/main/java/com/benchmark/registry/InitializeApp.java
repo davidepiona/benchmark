@@ -6,8 +6,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.UUID;
 
 @Component

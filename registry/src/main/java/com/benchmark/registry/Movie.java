@@ -4,16 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.cassandra.core.mapping.Indexed;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.SASI;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Optional;
-
-import static org.springframework.data.cassandra.core.mapping.SASI.IndexMode.CONTAINS;
 
 @Table("movie_informations")
 @Data

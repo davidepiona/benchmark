@@ -2,7 +2,6 @@ package com.benchmark.upload;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -11,8 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.UUID;
 
 @CrossOrigin
 @RestController

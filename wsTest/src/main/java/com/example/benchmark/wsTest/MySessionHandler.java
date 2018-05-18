@@ -9,7 +9,6 @@ import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.Map;
 
 @Slf4j
 public class MySessionHandler extends StompSessionHandlerAdapter {
