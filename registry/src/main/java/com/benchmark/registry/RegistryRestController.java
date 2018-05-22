@@ -58,6 +58,13 @@ public class RegistryRestController {
                 .orElseThrow(MovieNotFoundException::new);              //404
     }
 
+    @DeleteMapping("/movies/delete")
+    public HttpEntity<?> deleteAll(){
+        movieService.deleteAll();
+        return ResponseEntity.noContent().build();
+
+    }
+
     @PostMapping("/movies")
     public HttpEntity<?> addMovie(@RequestBody Movie res) {
         res.setId(UUID.randomUUID().toString());

@@ -23,13 +23,15 @@ public class WSManager {
     private MySessionHandler sessionHandler;
     private TestProperties props;
 
+    private StompSession.Subscription subscribe;
+
     /**
      * Constructor that create the session, establishes the connection and subscribes it
      */
-    public WSManager() {
 
-//        String url = props.getWs();
-        String url = "ws://127.0.0.1:8020/events/websocket";
+    public WSManager(TestProperties props) {
+        this.props = props;
+        String url = this.props.getWs();    //String url = "ws://127.0.0.1:8020/events/websocket";
         WebSocketClient webSocketClient = new StandardWebSocketClient();
         WebSocketStompClient stompClient = new WebSocketStompClient(webSocketClient);
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
@@ -38,12 +40,20 @@ public class WSManager {
         this.stompSession = null;
         try {
             stompSession = stompClient.connect(url, sessionHandler).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+            System.out.println("Creata ws");
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        stompSession.subscribe("/topic/upload", sessionHandler);
+    }
+
+    public void subscribe() {
+//        System.out.println("<--subscribe-->");
+        this.subscribe = stompSession.subscribe("/topic/upload", sessionHandler);
+    }
+
+    public void unsubscribe() {
+//        System.out.println("<--unsubscribe-->");
+        subscribe.unsubscribe();
     }
 
     public void movieListUpload(MovieList movieList) {
@@ -51,7 +61,7 @@ public class WSManager {
 
         for (int i = 0; i < movieList.getMovieResources().size(); i++) {
             MovieInfo movieInfo = movieList.getMovieResources().get(i);
-            uploadRequest(movieInfo, "/home/davide/Desktop/Bambino_Freddo.mp4");
+            uploadRequest(movieInfo, props.getPath());
         }
     }
 
@@ -64,15 +74,14 @@ public class WSManager {
 
     public void uploadRequest(MovieInfo movieInfo, String uploadPath) {
 
-        String id = movieInfo.getMovieId();
-        File f = new File(uploadPath);
+        final String id = movieInfo.getMovieId();
+        final File f = new File(uploadPath);
         sessionHandler.startTimer(id);
 
-        String path = f.getAbsolutePath();
+        final String path = f.getAbsolutePath();
         byte[] buffer = new byte[BUFFER_SIZE];
 
         try (InputStream input = FileUtils.openInputStream(f)) {
-            System.out.println(f.length());
             final long totalBytesCount = input.available();
             int partCount = Math.round(totalBytesCount / BUFFER_SIZE);
             System.out.println("partcount= " + partCount + " totalBytes= " + totalBytesCount);

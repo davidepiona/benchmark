@@ -13,3 +13,4 @@ eureka:
 # todo non so se sia corretto
 test:
   ws: ws://upload-service:8020/events/websocket
+  path: /opt/Bambino_Freddo.mp4

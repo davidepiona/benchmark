@@ -40,4 +40,9 @@ public class MovieServiceImpl implements MovieService{
     public Movie addMovie(Movie res) {
         return movieRepository.save(res);
     }
+
+    @Override
+    public void deleteAll() {
+        movieRepository.deleteAll();
+    }
 }

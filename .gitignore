@@ -32,3 +32,4 @@ ffprobe
 *.vmdk
 *.qcow2
 *.iso
+*.mp4

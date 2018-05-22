@@ -14,4 +14,5 @@ import org.springframework.stereotype.Component;
 public class TestProperties {
 
     private String ws;
+    private String path;
 }

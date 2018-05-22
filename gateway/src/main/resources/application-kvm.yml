@@ -12,12 +12,18 @@ spring:
           - Path=/api/upload/**
           filters:
           - RewritePath=/api/upload/(?<segment>.*), api/upload/$\{segment}
+          - name: Hystrix
+            args:
+              name: uploadFallback
         - id: registry
           uri: lb://registry-service
           predicates:
           - Path=/api/**
           filters:
           - RewritePath=/api/(?<segment>.*), api/$\{segment}
+          - name: Hystrix
+            args:
+              name: registryFallback
         - id: nginx
           uri: http://192.168.122.88:80
           predicates:
@@ -29,6 +35,21 @@ spring:
           uri: http://192.168.122.89:8080
           predicates:
           - Path=/**
+hystrix:
+  command:
+    uploadFallback:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+hystrix:
+  command:
+    registryFallback:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
 
 management:
   endpoints:

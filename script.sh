@@ -1,6 +1,6 @@
 #!/bin/bash
 
-nGet=100
+nGet=1000
 nPos=300
 nUpl=100
 boolGet=true
@@ -16,7 +16,7 @@ export TIMEFORMAT='real: %3R  user: %3U sys: %3S'
 if $boolGet; then
 	for i in `seq 1 $nGet`
 	do	
-		time wget -q -O/dev/null http://127.0.0.1:8010/api/movies || echo $? >>error.txt &
+		wget -q -O/dev/null http://127.0.0.1:8010/api/movies || echo $? >>error.txt &
 	done
 wait
 errors=$(wc -w error.txt | head -n1)

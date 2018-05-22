@@ -14,4 +14,6 @@ public interface MovieService {
 
     Movie addMovie(Movie res);
 
+    void deleteAll();
+
 }

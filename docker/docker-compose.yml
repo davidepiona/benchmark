@@ -1,52 +1,52 @@
 version: "3"
 services:
-  # eureka-service:
-  #   image: davidepiona/eureka-microservice
-  #   deploy:
-  #     replicas: 1
-  #     restart_policy:
-  #       condition: on-failure
-  #   ports:
-  #     - "8761:8761"
-  #     - "7761:7761"
-  #   networks:
-  #     - net
-  # upload-service:
-  #   image: davidepiona/upload-microservice:latest
-  #   deploy:
-  #     replicas: 1
-  #     restart_policy:
-  #       condition: on-failure
-  #   ports:
-  #     - "8020:8020"
-  #     - "7020:7020"
-  #   volumes:
-  #     # - "C:/Users/Davide/IdeaProjects/benchmark/media:/opt/media"
-  #     - "/home/davide/dev/benchmark/media:/opt/media"
-  #   networks:
-  #     - net
-  # gateway-service:
-  #   image: davidepiona/gateway-microservice
-  #   deploy:
-  #     replicas: 2
-  #     restart_policy:
-  #       condition: on-failure
-  #   ports:
-  #     - "9999:9999" 
-  #     - "7999:7999" 
-  #   networks:
-  #     - net
-  # registry-service:
-  #   image: davidepiona/registry-microservice
-  #   deploy:
-  #     replicas: 2
-  #     restart_policy:
-  #       condition: on-failure
-  #   ports:
-  #     - "8010:8010"
-  #     - "7010:7010"
-  #   networks:
-  #     - net
+  eureka-service:
+    image: davidepiona/eureka-microservice
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8761:8761"
+      - "7761:7761"
+    networks:
+      - net
+  upload-service:
+    image: davidepiona/upload-microservice:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8020:8020"
+      - "7020:7020"
+    volumes:
+      # - "C:/Users/Davide/IdeaProjects/benchmark/media:/opt/media"
+      - "/home/davide/dev/benchmark/media:/opt/media"
+    networks:
+      - net
+  gateway-service:
+    image: davidepiona/gateway-microservice
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "9999:9999" 
+      - "7999:7999" 
+    networks:
+      - net
+  registry-service:
+    image: davidepiona/registry-microservice
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8010:8010"
+      - "7010:7010"
+    networks:
+      - net
   nginx:
     image: nginx
     deploy:
@@ -62,22 +62,22 @@ services:
       - "/home/davide/dev/benchmark/media:/opt/stream"
     networks:
       - net
-  # cassandra: 
-  #   image: davidepiona/cassandra
-  #   command: /bin/bash -c "sleep 1 && echo ' -- Pausing to let system catch up ... -->' && /docker-entrypoint.sh cassandra -f"
-  #   ports:
-  #     - "9042:9042"
-  #   networks:
-  #     - net
-  #   environment:
-  #     - MAX_HEAP_SIZE=400M
-  #     - HEAP_NEWSIZE=200M
-  #     - disk_optimization_strategy=ssd
-  # gui:
-  #   image: davidepiona/benchgui
-  #   ports:
-  #     - "8080:8080"
-  #   networks:
-  #     - net  
+  cassandra: 
+    image: davidepiona/cassandra
+    command: /bin/bash -c "sleep 1 && echo ' -- Pausing to let system catch up ... -->' && /docker-entrypoint.sh cassandra -f"
+    ports:
+      - "9042:9042"
+    networks:
+      - net
+    environment:
+      - MAX_HEAP_SIZE=400M
+      - HEAP_NEWSIZE=200M
+      - disk_optimization_strategy=ssd
+  gui:
+    image: davidepiona/benchgui
+    ports:
+      - "8080:8080"
+    networks:
+      - net  
 networks:
     net:

@@ -14,3 +14,4 @@ eureka:
 # todo non so se sia corretto
 test:
   ws: ws://192.168.122.82:8020/events/websock
+  path: /opt/Bambino_Freddo.mp4

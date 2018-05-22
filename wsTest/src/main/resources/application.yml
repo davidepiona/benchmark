@@ -6,3 +6,4 @@ spring:
 
 test:
   ws: ws://127.0.0.1:8020/events/websocket
+  path: /home/davide/dev/benchmark/wsTest/Bambino_Freddo.mp4

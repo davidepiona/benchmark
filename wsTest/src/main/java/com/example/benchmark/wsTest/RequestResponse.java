@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class RequestResponse {
     private int number;
     private long time;
+    private int status;
     private Boolean success;
 }

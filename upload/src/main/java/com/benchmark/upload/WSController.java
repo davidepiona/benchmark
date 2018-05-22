@@ -43,7 +43,7 @@ public class WSController {
             e.printStackTrace();
         }
 
-        System.out.println("part: " + req.getPartId() + "  count: " + req.getPartCount());
+        //System.out.println("part: " + req.getPartId() + "  count: " + req.getPartCount());
         if (req.getPartId() == req.getPartCount()) {
             File dest = new File(props.getPath(), "file0" + req.getId() + ".tmp");
             for (int partId = 1; partId < req.getPartCount(); partId++) {
@@ -81,7 +81,7 @@ public class WSController {
             e.printStackTrace();
         }
         System.out.println(ffmpeg.getHeight() + "x" + ffmpeg.getWidth() + "   " + ffmpeg.getRatio() + " Duration:" + ffmpeg.getDuration());
-        Movie res = new Movie(req.getId(), null, null, null, null, ffmpeg.getDuration(), false, ffmpeg.getWidth(), ffmpeg.getHeight());
+        Movie res = new Movie(req.getId(), "WSUpload", null, null, null, ffmpeg.getDuration(), false, ffmpeg.getWidth(), ffmpeg.getHeight());
         restTemplate.exchange(
                 "http://registry-service/api/movies/{movieId}"
                 , HttpMethod.PUT
