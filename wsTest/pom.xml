@@ -26,6 +26,15 @@
 	</properties>
 
 	<dependencies>
+			<!--<dependency>-->
+				<!--<groupId>io.dropwizard.metrics</groupId>-->
+				<!--<artifactId>metrics-jmx</artifactId>-->
+				<!--<version>4.0.2</version>-->
+			<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-actuator</artifactId>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
@@ -63,6 +72,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.apache.httpcomponents</groupId>-->
+			<!--<artifactId>httpmime</artifactId>-->
+			<!--<version>4.3.1</version>-->
+		<!--</dependency>-->
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -104,6 +119,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
 	<profiles>
 		<profile>
 			<id>docker</id>

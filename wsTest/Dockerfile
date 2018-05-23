@@ -3,6 +3,7 @@ MAINTAINER Davide Piona <davide.piona@studenti.unipd.it>
 ARG JAR_FILE
 EXPOSE 8070
 EXPOSE 7070
+COPY target/${JAR_FILE} /wsTest-microservice.jar
 COPY Bambino_Freddo.mp4 /opt/Bambino_Freddo.mp4
 CMD ["java", \
     "-Dspring.profiles.active=docker", \

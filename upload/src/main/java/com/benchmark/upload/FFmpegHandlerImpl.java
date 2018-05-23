@@ -30,8 +30,8 @@ public class FFmpegHandlerImpl implements FFmpegHandler {
                     "-v quiet -show_format -show_streams /home/davide/dev/benchmark/media/" + path + ".mp4");
         } else if (env.equals("docker")) {
             builder = new ProcessBuilder(
-                    "/bin/bash", "-c", "opt/ffprobe " +
-                    "-v quiet -show_format -show_streams opt/media/" + path + ".mp4"); // TODO: 17/05/18 può essere che sia necessario aggiungere la "/" 
+                    "/bin/bash", "-c", "/opt/ffprobe " +
+                    "-v quiet -show_format -show_streams /opt/media/" + path + ".mp4");
         } else {
             builder = new ProcessBuilder(
                     "/bin/bash", "-c", "/opt/ffprobe " +

@@ -21,9 +21,9 @@ spring:
           - Path=/api/**
           filters:
           - RewritePath=/api/(?<segment>.*), api/$\{segment}
-          - name: Hystrix
-            args:
-              name: registryFallback
+#          - name: Hystrix
+#            args:
+#              name: registryFallback
         - id: nginx
           uri: http://192.168.122.88:80
           predicates:

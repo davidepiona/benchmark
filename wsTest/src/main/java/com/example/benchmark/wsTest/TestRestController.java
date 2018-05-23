@@ -506,7 +506,8 @@ public class TestRestController {
         System.out.println("DIMENSIONE:" + getMovieInfoList().getMovieResources().size());
         String id = getMovieInfoList().getMovieResources().get(0).getMovieId();
         LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-        map.add("file", new FileSystemResource(new File(props.getPath())));
+
+        map.add("file", new FileSystemResource(new File("/home/davide/dev/benchmark/wsTest/Bambino_Freddo.mp4")));
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(map, headers);
         System.out.println("Sending request for " + id);
