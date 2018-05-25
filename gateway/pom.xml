@@ -120,6 +120,7 @@
 							</execution>
 						</executions>
 						<configuration>
+							<!--<repository>davidepiona/gateway-microservice-kube</repository>-->
 							<repository>davidepiona/gateway-microservice</repository>
 							<buildArgs>
 								<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>

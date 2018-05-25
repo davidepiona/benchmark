@@ -1,19 +1,105 @@
+######################################################
+##                    Eureka                        ##
+######################################################
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka-service
+  labels:
+    app: eureka-service
+spec:
+  ports:
+  - name: default
+    port: 8761
+    targetPort: 8761
+  - name: jmx
+    port: 7761
+    targetPort: 7761
+  selector:
+    app: eureka-service
+######################################################
+##                    Gateway                       ##
+######################################################
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway
+  labels:
+    app: gateway
+spec:
+  type: LoadBalancer
+  ports:
+  - name: default
+    port: 9999
+    targetPort: 9999
+  - name: jmx
+    port: 7999
+    targetPort: 7999
+  selector:
+    app: gateway
+######################################################
+##                  Upload & Nginx                  ##
+######################################################
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: upload
+  labels:
+    app: upload
+spec:
+  type: NodePort
+  ports:
+  - name: jmx
+    port: 7020
+    targetPort: 7020
+  - name: nginx
+    port: 8888
+    targetPort: 80
+  selector:
+    app: upload
+######################################################
+##                    Registry                      ##
+######################################################
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry
+  labels:
+    app: registry
+spec:
+  type: NodePort
+  ports:
+  - name: test
+    port: 8010
+    targetPort: 8010
+  - name: jmx
+    port: 7010
+    targetPort: 7010
+  selector:
+    app: registry
+######################################################
+##                     Nginx NO                     ##
+######################################################
 # ---
 # apiVersion: v1
 # kind: Service
 # metadata:
-   # name: mongo-svc-a
-# labels:
-   # name: mongo-svc-a
+#   name: nginx
+#   labels:
+#     app: nginx
 # spec:
-   # type: LoadBalancer
-   # ports:
-   # - port: 27017
-      # targetPort: 27017
-      # protocol: TCP
-      # name: mongo-svc-a
-   # selector:
-       # name: mongo   
+#   ports:
+#   - port: 8888
+#     targetPort: 8888
+#   selector:
+#     app: nginx
+######################################################
+##                   Cassandra                      ##
+######################################################
 ---
 apiVersion: v1
 kind: Service
@@ -27,7 +113,13 @@ spec:
     targetPort: 9042
   selector:
     app: cassandra
----
+#
+#
+#
+#
+#-----------------------------------------------------------------
+#
+#---
 # apiVersion: v1
 # kind: Service
 # metadata:
@@ -41,33 +133,3 @@ spec:
     # targetPort: 8080
   # selector:
     # app: dev
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: gateway
-  labels:
-    app: gateway
-spec:
-  type: NodePort
-  ports:
-  - port: 9999
-    targetPort: 9999
-  selector:
-    app: gateway
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: eureka-service
-  labels:
-    app: eureka-service
-spec:
-  type: NodePort
-  ports:
-  - port: 8761
-    targetPort: 8761
-  - port: 7761
-    targetPort: 7761
-  selector:
-    app: eureka-service

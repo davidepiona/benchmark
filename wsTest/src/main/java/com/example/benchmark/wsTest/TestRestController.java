@@ -35,7 +35,7 @@ public class TestRestController {
     public TestRestController(@LoadBalanced RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
         headers = new HttpHeaders();
-        headers.add("Cache-Control", "no-cache");
+//        headers.add("Cache-Control", "no-cache");
     }
 
     @GetMapping("/test/{type}")
