@@ -3,6 +3,7 @@ package com.benchmark.registry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,11 +49,7 @@ public class RegistryRestController {
         return Optional.ofNullable(movieService.getMovieById(id))
                 .map(a -> {
                     movieService.deleteMovie(id);
-                    System.out.println("Delete-movie"+id);
-                    File file = new File(props.getPath(),id+".mp4");
-                    if(!file.delete()){
-                        System.out.println("ERRORE ELIMINAZIONE FILE: "+ id+".mp4");
-                    }
+                    System.out.println("Deleted-movie"+id);
                     return ResponseEntity.noContent().build();          //204
                 })
                 .orElseThrow(MovieNotFoundException::new);              //404

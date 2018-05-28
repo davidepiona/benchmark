@@ -1,5 +1,8 @@
 version: "3"
 services:
+######################################################
+##                     Eureka                       ##
+######################################################  
   eureka-service:
     image: davidepiona/eureka-microservice
     deploy:
@@ -11,6 +14,23 @@ services:
       - "7761:7761"
     networks:
       - net
+######################################################
+##                     Gateway                      ##
+######################################################
+  gateway-service:
+    image: davidepiona/gateway-microservice
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "9999:9999" 
+      - "7999:7999" 
+    networks:
+      - net
+######################################################
+##                     Upload                       ##
+######################################################
   upload-service:
     image: davidepiona/upload-microservice:latest
     deploy:
@@ -25,17 +45,9 @@ services:
       - "/home/davide/dev/benchmark/media:/opt/media"
     networks:
       - net
-  gateway-service:
-    image: davidepiona/gateway-microservice
-    deploy:
-      replicas: 2
-      restart_policy:
-        condition: on-failure
-    ports:
-      - "9999:9999" 
-      - "7999:7999" 
-    networks:
-      - net
+######################################################
+##                     Registry                     ##
+######################################################
   registry-service:
     image: davidepiona/registry-microservice
     deploy:
@@ -47,6 +59,9 @@ services:
       - "7010:7010"
     networks:
       - net
+######################################################
+##                      Nginx                       ##
+######################################################
   nginx:
     image: nginx
     deploy:
@@ -62,6 +77,9 @@ services:
       - "/home/davide/dev/benchmark/media:/opt/stream"
     networks:
       - net
+######################################################
+##                   Cassandra                      ##
+######################################################
   cassandra: 
     image: davidepiona/cassandra
     command: /bin/bash -c "sleep 1 && echo ' -- Pausing to let system catch up ... -->' && /docker-entrypoint.sh cassandra -f"
@@ -73,6 +91,9 @@ services:
       - MAX_HEAP_SIZE=400M
       - HEAP_NEWSIZE=200M
       - disk_optimization_strategy=ssd
+######################################################
+##                      Gui                         ##
+######################################################
   gui:
     image: davidepiona/benchgui
     ports:

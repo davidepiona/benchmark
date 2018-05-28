@@ -46,26 +46,27 @@ public class WSController {
         //System.out.println("part: " + req.getPartId() + "  count: " + req.getPartCount());
         if (req.getPartId() == req.getPartCount()) {
             File dest = new File(props.getPath(), "file0" + req.getId() + ".tmp");
-            for (int partId = 1; partId < req.getPartCount(); partId++) {
+            int partId;
+            for (partId=1; partId < req.getPartCount(); partId++) {
                 byte[] buffer = null;
                 try {
-                    buffer = IOUtils.toByteArray(new File(props.getPath(), "file" + partId + req.getId() + ".tmp").toURI());
+                    File file = new File(props.getPath(), "file" + partId + req.getId() + ".tmp");
+                    buffer = IOUtils.toByteArray(file.toURI());
                     FileUtils.writeByteArrayToFile(dest, buffer, true);
+                    if(!file.delete()) {
+                        System.out.println("File temporaneo non eliminato: file" + partId + req.getId() + ".tmp");
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+            File file = new File(props.getPath(), "file" + partId + req.getId() + ".tmp");
+            if(!file.delete()) {
+                System.out.println("File temporaneo non eliminato: file" + partId + req.getId() + ".tmp");
+            }
             dest.renameTo(new File(props.getPath(), req.getId() + ".mp4"));
             if (!postToRegistry(req)) {
                 return new WSResponse(req.getId(), false);
-            }
-            ProcessBuilder builder; // TODO: 11/05/18 bisogna aspettare che finiscano le operazioni precedenti? 
-            builder = new ProcessBuilder("/bin/bash", "-c", "cd /home/davide/dev/benchmark/media/; rm *" + req.getId() + ".tmp");
-            builder.redirectErrorStream(true);
-            try {
-                builder.start();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
             return new WSResponse(req.getId(), true);
         }

@@ -1,7 +1,8 @@
 #!/bin/bash
-sudo docker push davidepiona/upload-microservice
-sudo docker push davidepiona/registry-microservice
-sudo docker push davidepiona/eureka-microservice
-sudo docker push davidepiona/gateway-microservice
-sudo docker push davidepiona/benchgui
+docker push davidepiona/upload-microservice
+docker push davidepiona/registry-microservice
+docker push davidepiona/eureka-microservice
+docker push davidepiona/gateway-microservice
+docker push davidepiona/benchgui
+docker push davidepiona/cassandra
 

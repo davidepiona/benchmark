@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 @CrossOrigin
 @RestController
@@ -33,14 +34,14 @@ public class UploadRestController {
     public HttpEntity<?> addImage(@PathVariable String id, @RequestParam("file") MultipartFile file) {
         try {
             //todo controllare che l'id esista prima di copiare il video
-            File f = new File(props.getPath(), id+".mp4");
+            File f = new File(props.getPath(), id + ".mp4");
             String path = f.getAbsolutePath();
-            System.out.println("INIZIO: InputStream targetStream = FileUtils.openInputStream(initialFile);Il file al percorso"+ path+ "esiste?  |"+ f.exists());
+            System.out.println("INIZIO: InputStream targetStream = FileUtils.openInputStream(initialFile);Il file al percorso" + path + "esiste?  |" + f.exists());
             file.transferTo(f);
-            System.out.println("FINE: Il file al percorso"+ path+ "esiste?  |"+ f.exists());
+            System.out.println("FINE: Il file al percorso" + path + "esiste?  |" + f.exists());
 
             FFmpegHandlerImpl ffmpeg = new FFmpegHandlerImpl(id, props.getEnvironment());
-            System.out.println(ffmpeg.getHeight()+"x"+ffmpeg.getWidth()+"   "+ ffmpeg.getRatio()+ " Duration:"+ ffmpeg.getDuration());
+            System.out.println(ffmpeg.getHeight() + "x" + ffmpeg.getWidth() + "   " + ffmpeg.getRatio() + " Duration:" + ffmpeg.getDuration());
             Movie res = new Movie(id, null, null, null, null, ffmpeg.getDuration(), false, ffmpeg.getWidth(), ffmpeg.getHeight());
 //            Movie res = new Movie(id, null, null, null, null, 0, false, 0,0 );
             //headers.add("X-HTTP-Method-Override", "PATCH");
@@ -53,10 +54,26 @@ public class UploadRestController {
 
         } catch (IOException e) {
             return ResponseEntity.badRequest().build();
-        }
-        catch (HttpClientErrorException hcee) {
+        } catch (HttpClientErrorException hcee) {
             return ResponseEntity.status(hcee.getStatusCode()).contentType(MediaType.APPLICATION_JSON_UTF8).body(hcee.getResponseBodyAsString());
         }
     }
 
+    @DeleteMapping("/upload/delete/{id}")
+    public HttpEntity<?> deleteMovie(@PathVariable String id) {
+
+        System.out.println("uscito");
+        File file = new File(props.getPath(), id + ".mp4");
+        if (!file.delete()) {
+            System.out.println("ERRORE ELIMINAZIONE FILE: " + id + ".mp4");
+            throw new NoSuchElementException();     //404
+        }
+        System.out.println("Deleted-movie File" + id);
+        return restTemplate.exchange("http://gateway-service/api/movies/{movieId}",
+                HttpMethod.DELETE,
+                new HttpEntity<>(headers),
+                String.class,
+                id);
+
+    }
 }
