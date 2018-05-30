@@ -3,3 +3,6 @@ qemu-img convert -O qcow2 turnkey-core-14.2-jessie-amd64-disk1.vmdk /home/davide
 tar xvf *.ova
 
 qemu-img create alpine.qcow 8G
+
+qemu-img convert -f qcow2 -O vmdk -o adapter_type=lsilogic,subformat=streamOptimized,compat6 Eureka.qcow2 Eureka.vmdk
+

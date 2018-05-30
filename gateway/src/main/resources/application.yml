@@ -37,8 +37,6 @@ spring:
         - Path=/**
 #        filters:
 #        - Hystrix=commandName
-
-
 hystrix:
   command:
     uploadFallback:
@@ -54,7 +52,6 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 5000
-
 management:
   endpoints:
     web:

@@ -11,10 +11,10 @@ spring:
           predicates:
           - Path=/api/upload/**
           filters:
-          - RewritePath=/api/upload/(?<segment>.*), api/upload/$\{segment}
-          - name: Hystrix
-            args:
-              name: uploadFallback
+#          - RewritePath=/api/upload/(?<segment>.*), api/upload/$\{segment}
+#          - name: Hystrix
+#            args:
+#              name: uploadFallback
         - id: registry
           uri: lb://registry-service
           predicates:

@@ -35,7 +35,7 @@ public class TestRestController {
     public TestRestController(@LoadBalanced RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
         headers = new HttpHeaders();
-//        headers.add("Cache-Control", "no-cache");
+        headers.add("Cache-Control", "no-cache");
     }
 
     @GetMapping("/test/{type}")
@@ -91,6 +91,15 @@ public class TestRestController {
 
     }
 
+    @GetMapping("/deleteAll")
+    public void deleteAll() {
+
+        restTemplate.exchange("http://gateway-service/api/movies/delete",
+                HttpMethod.DELETE,
+                new HttpEntity<>(headers),
+                String.class);
+    }
+
     @GetMapping("/runTest")
     public void runTest() {
         // get the id and pending status of all the films
@@ -101,65 +110,68 @@ public class TestRestController {
         wsManager.subscribe();
         OutputStream output = null;
         try {
-            output = new FileOutputStream("/home/davide/dev/benchmark/system.err.txt");
+            output = new FileOutputStream("/home/davide/dev/benchmark/output.txt");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         PrintStream printOut = new PrintStream(output);
 //        System.setErr(printOut);
-
+//        System.setOut(printOut);
+        int waitingTime = 10000;
         Long time = null;
         ArrayList<ArrayList<RequestResponse>> responses = new ArrayList<>();
 
         try {
             System.err.println("GET - INIZIO TEST 1");
             time = System.currentTimeMillis();
-            responses.add(requestPeak(movieInfoList));
-
-            System.err.println("\tFINE TEST 1, impiegati " + (System.currentTimeMillis() - time) + " secondi.");
-            Thread.sleep(1000);
-            System.err.println("INIZIO TEST 2");
-
-            time = System.currentTimeMillis();
-            responses.add(requestContinuos(movieInfoList));
-
-            System.err.println("\tFINE TEST 2, impiegati " + (System.currentTimeMillis() - time) + " secondi.");
-            Thread.sleep(1000);
-            System.err.println("POST - INIZIO TEST 3");
-
-            time = System.currentTimeMillis();
             responses.add(postPeak());
 
-            System.err.println("\tFINE TEST 3, impiegati " + (System.currentTimeMillis() - time) + " secondi.");
-            Thread.sleep(1000);
-            System.err.println("INIZIO TEST 4");
+            System.err.println("\tFINE TEST 1, impiegati " + (System.currentTimeMillis() - time) + " secondi.");
+            Thread.sleep(waitingTime);
+            System.err.println("INIZIO TEST 2");
 
             time = System.currentTimeMillis();
             responses.add(postContinuos());
 
+            System.err.println("\tFINE TEST 2, impiegati " + (System.currentTimeMillis() - time) + " secondi.");
+            Thread.sleep(waitingTime/2);
+            movieInfoList = getMovieInfoList();
+            Thread.sleep(waitingTime/2);
+            System.err.println("POST - INIZIO TEST 3");
+
+            time = System.currentTimeMillis();
+            responses.add(requestPeak(movieInfoList));
+
+            System.err.println("\tFINE TEST 3, impiegati " + (System.currentTimeMillis() - time) + " secondi.");
+            Thread.sleep(waitingTime);
+            System.err.println("INIZIO TEST 4");
+
+            time = System.currentTimeMillis();
+            responses.add(requestContinuos(movieInfoList));
+
             System.err.println("\tFINE TEST 4, impiegati " + (System.currentTimeMillis() - time) + " secondi.");
-            Thread.sleep(1000);
+            Thread.sleep(waitingTime);
             System.err.println("UPLOAD - INIZIO TEST 5");
 
             time = System.currentTimeMillis();
             responses.add(uploadPeak(movieInfoList));
 
             System.err.println("\tFINE TEST 5, impiegati " + (System.currentTimeMillis() - time) + " secondi.");
-            Thread.sleep(1000);
+            Thread.sleep(waitingTime);
             System.err.println("INIZIO TEST 6");
 
             time = System.currentTimeMillis();
             responses.add(uploadContinuos(movieInfoList));
 
             System.err.println("\tFINE TEST 6, impiegati " + (System.currentTimeMillis() - time) + " secondi.");
-            Thread.sleep(1000);
+            Thread.sleep(waitingTime);
             System.err.println("UPLOADWS - INIZIO TEST 7");
 
             time = System.currentTimeMillis();
             responses.add(uploadPeakWS(movieInfoList));
 
             System.err.println("\tFINE TEST 7, impiegati " + (System.currentTimeMillis() - time) + " secondi.");
-            Thread.sleep(1000);
+            Thread.sleep(waitingTime);
             System.err.println("INIZIO TEST 8");
 
             time = System.currentTimeMillis();
@@ -471,7 +483,7 @@ public class TestRestController {
             System.out.println("Sto per inserire: "+ id);
             try {
                 final ResponseEntity<String> res = restTemplate.exchange(
-                        "http://gateway-service/api/upload/{movieId}",
+                        "http://upload-service/api/upload/{movieId}", // TODO: 28/05/18 FARLO PASSARE PER IL GATEWAY CREA PROBLEMI E SI BLOCCA (il problema sembra essere nello sleep) 
                         HttpMethod.POST,
                         requestEntity,
                         String.class,
@@ -500,6 +512,8 @@ public class TestRestController {
         }
         return responses;
     }
+
+
 
     @GetMapping("/unlock")
     public void unlock() {

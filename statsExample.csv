@@ -1,32 +1,44 @@
-[2J[Hcb87ce7af24d, docker_cassandra_1, 1.71%, 682.9MiB / 7.414GiB, 9.00%, 137kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 1.35%, 864.6MiB / 7.414GiB, 11.39%, 250kB / 195kB, 11.1MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 1.71%, 682.9MiB / 7.414GiB, 9.00%, 137kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 1.35%, 864.6MiB / 7.414GiB, 11.39%, 250kB / 195kB, 11.1MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 1.41%, 682.9MiB / 7.414GiB, 9.00%, 137kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 0.34%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 1.41%, 682.9MiB / 7.414GiB, 9.00%, 137kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 0.34%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 0.84%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 0.23%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 0.84%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,"docker stats --format ""{{.Container}}, {{.Name}}, {{.CPUPerc}}, {{.MemUsage}}, {{.MemPerc}}, {{.NetIO}}, {{.BlockIO}}, {{.PIDs}}"" > stat.csv"
-8b47effc1d2f, docker_registry-service_1, 0.23%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 0.92%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 0.28%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 0.92%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,"docker stats --format ""table {{.Container}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}\t{{.PIDs}}"""
-8b47effc1d2f, docker_registry-service_1, 0.28%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 0.88%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 0.24%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 0.88%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 0.24%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 0.84%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 7.62%, 864.7MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.2MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 0.84%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 7.62%, 864.7MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.2MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 0.79%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 0.22%, 864.7MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.2MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 0.79%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 0.22%, 864.7MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.2MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 0.88%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 0.63%, 864.7MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.2MB / 504kB,55,,
-[2J[Hcb87ce7af24d, docker_cassandra_1, 0.88%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,
-8b47effc1d2f, docker_registry-service_1, 0.63%, 864.7MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.2MB / 504kB,55,,
+[2J[Hcb87ce7af24d, docker_cassandra_1, 1.71%, 682.9MiB / 7.414GiB, 9.00%, 137kB / 241kB, 264MB / 19.8MB,66,,,
+8b47effc1d2f, docker_registry-service_1, 1.35%, 864.6MiB / 7.414GiB, 11.39%, 250kB / 195kB, 11.1MB / 504kB,55,,,
+[2J[Hcb87ce7af24d, docker_cassandra_1, 1.71%, 682.9MiB / 7.414GiB, 9.00%, 137kB / 241kB, 264MB / 19.8MB,66,,,
+8b47effc1d2f, docker_registry-service_1, 1.35%, 864.6MiB / 7.414GiB, 11.39%, 250kB / 195kB, 11.1MB / 504kB,55,,,
+[2J[Hcb87ce7af24d, docker_cassandra_1, 1.41%, 682.9MiB / 7.414GiB, 9.00%, 137kB / 241kB, 264MB / 19.8MB,66,,,
+8b47effc1d2f, docker_registry-service_1, 0.34%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,,
+[2J[Hcb87ce7af24d, docker_cassandra_1, 1.41%, 682.9MiB / 7.414GiB, 9.00%, 137kB / 241kB, 264MB / 19.8MB,66,,,
+8b47effc1d2f, docker_registry-service_1, 0.34%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,,
+[2J[Hcb87ce7af24d, docker_cassandra_1, 0.84%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,,
+8b47effc1d2f, docker_registry-service_1, 0.23%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,,
+[2J[Hcb87ce7af24d, docker_cassandra_1, 0.84%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,"docker stats --format ""{{.Container}}, {{.Name}}, {{.CPUPerc}}, {{.MemUsage}}, {{.MemPerc}}, {{.NetIO}}, {{.BlockIO}}, {{.PIDs}}"" > stat.csv",
+8b47effc1d2f, docker_registry-service_1, 0.23%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,,
+[2J[Hcb87ce7af24d, docker_cassandra_1, 0.92%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,,
+8b47effc1d2f, docker_registry-service_1, 0.28%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,,
+[2J[Hcb87ce7af24d, docker_cassandra_1, 0.92%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,"docker stats --format ""table {{.Container}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}\t{{.PIDs}}""",
+8b47effc1d2f, docker_registry-service_1, 0.28%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,,
+[2J[Hcb87ce7af24d, docker_cassandra_1, 0.88%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,,
+8b47effc1d2f, docker_registry-service_1, 0.24%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,COUNT IF,
+[2J[Hcb87ce7af24d, docker_cassandra_1, 0.88%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,8,
+8b47effc1d2f, docker_registry-service_1, 0.24%, 864.6MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.1MB / 504kB,55,,,
+[2J[Hcb87ce7af24d, docker_cassandra_1, 0.84%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,,
+8b47effc1d2f, docker_registry-service_1, 7.62%, 864.7MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.2MB / 504kB,55,,,
+[2J[Hcb87ce7af24d, docker_cassandra_1, 0.84%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,2018-05-28 17:03:32,43248.710787
+8b47effc1d2f, docker_registry-service_1, 7.62%, 864.7MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.2MB / 504kB,55,,2018-05-28 17:03:32,43248.710788
+[2J[Hcb87ce7af24d, docker_cassandra_1, 0.79%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,2018-05-28 17:03:32,43248.710789
+8b47effc1d2f, docker_registry-service_1, 0.22%, 864.7MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.2MB / 504kB,55,,2018-05-28 17:03:32,43248.71079
+[2J[Hcb87ce7af24d, docker_cassandra_1, 0.79%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,2018-05-28 17:03:32,43248.710791
+8b47effc1d2f, docker_registry-service_1, 0.22%, 864.7MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.2MB / 504kB,55,,2018-05-28 17:03:32,43248.710792
+[2J[Hcb87ce7af24d, docker_cassandra_1, 0.88%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,2018-05-28 17:03:33,43248.710793
+8b47effc1d2f, docker_registry-service_1, 0.63%, 864.7MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.2MB / 504kB,55,,2018-05-28 17:03:33,43248.710794
+[2J[Hcb87ce7af24d, docker_cassandra_1, 0.88%, 682.9MiB / 7.414GiB, 9.00%, 138kB / 241kB, 264MB / 19.8MB,66,,2018-05-28 17:03:33,43248.710795
+8b47effc1d2f, docker_registry-service_1, 0.63%, 864.7MiB / 7.414GiB, 11.39%, 251kB / 195kB, 11.2MB / 504kB,55,,2018-05-28 17:03:33,43248.710796
+,,,,,,,,,2018-05-28 17:03:33,43248.710797
+,,,,,,,,,2018-05-28 17:03:33,43248.710798
+,,,,,,,,,2018-05-28 17:03:33,43248.710799
+,,,,,,,,,2018-05-28 17:03:33,43248.7108
+,,,,,,,,,2018-05-28 17:03:33,43248.710801
+,,,,,,,,,2018-05-28 17:03:33,43248.710802
+,,,,,,,,,2018-05-28 17:03:33,43248.710803
+,,,,,,,,,2018-05-28 17:03:33,43248.710804
+,,,,,,,,,2018-05-28 17:03:34,43248.710805
+,,,,,,,,,2018-05-28 17:03:34,43248.710806
+,,,,,,,,,2018-05-28 17:03:34,43248.710807
+,,,,,,,,,2018-05-28 17:03:34,43248.710808
