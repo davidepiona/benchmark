@@ -13,6 +13,7 @@ spring:
   application:
     name: upload-service
 
+
 eureka:
   client:
     service-url:
