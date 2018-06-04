@@ -15,3 +15,5 @@ eureka:
 test:
   ws: ws://192.168.122.82:8020/events/websocket
   path: /opt/Bambino_Freddo.mp4
+logging:
+  file: ${spring.application.name}.log

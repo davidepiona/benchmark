@@ -24,3 +24,6 @@ eureka:
 upload:
   path: /opt/media
   environment: kvm
+
+logging:
+  file: ${spring.application.name}.log

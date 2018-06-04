@@ -68,3 +68,5 @@ path:
   nginx: http://192.168.122.88:8888
   gui: http://192.168.122.89:8080
 
+logging:
+  file: ${spring.application.name}.log

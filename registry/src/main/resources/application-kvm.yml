@@ -29,4 +29,5 @@ eureka:
 upload:
   path: /opt/media/
 
-
+logging:
+  file: ${spring.application.name}.log

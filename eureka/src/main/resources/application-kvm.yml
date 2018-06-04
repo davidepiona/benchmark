@@ -19,3 +19,6 @@ management:
     web:
       exposure:
         include: health,info,env
+
+logging:
+  file: ${spring.application.name}.log
